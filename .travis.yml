@@ -57,7 +57,7 @@ jobs:
       deploy:
         on:
           tags: true
-          repo: domdfcoding/Southwark
+          repo: domdfcoding/southwark
         provider: pypi
         user: "DomDF"
         password:

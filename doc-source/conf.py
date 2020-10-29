@@ -14,7 +14,7 @@ sys.path.append(os.path.abspath('..'))
 from __pkginfo__ import __version__
 
 github_username = "domdfcoding"
-github_repository = "Southwark"
+github_repository = "southwark"
 github_url = f"https://github.com/{github_username}/{github_repository}"
 
 rst_prolog = f""".. |pkgname| replace:: Southwark
@@ -76,7 +76,7 @@ html_show_sourcelink = True  # True will show link to source
 html_context = {
 		'display_github': True,
 		'github_user': 'domdfcoding',
-		'github_repo': 'Southwark',
+		'github_repo': 'southwark',
 		'github_version': 'master',
 		'conf_py_path': '/doc-source/',
 		}
@@ -101,7 +101,6 @@ toctree_plus_types = {
 		"protocol",
 		"typeddict",
 		"namedtuple",
-		"exception",
 		}
 
 add_module_names = False

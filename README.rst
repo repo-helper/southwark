@@ -33,32 +33,32 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 	:target: https://southwark.readthedocs.io/en/latest/?badge=latest
 	:alt: Documentation Build Status
 
-.. |docs_check| image:: https://github.com/domdfcoding/Southwark/workflows/Docs%20Check/badge.svg
-	:target: https://github.com/domdfcoding/Southwark/actions?query=workflow%3A%22Docs+Check%22
+.. |docs_check| image:: https://github.com/domdfcoding/southwark/workflows/Docs%20Check/badge.svg
+	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22Docs+Check%22
 	:alt: Docs Check Status
 
-.. |travis| image:: https://img.shields.io/travis/com/domdfcoding/Southwark/master?logo=travis
-	:target: https://travis-ci.com/domdfcoding/Southwark
+.. |travis| image:: https://img.shields.io/travis/com/domdfcoding/southwark/master?logo=travis
+	:target: https://travis-ci.com/domdfcoding/southwark
 	:alt: Travis Build Status
 
-.. |actions_windows| image:: https://github.com/domdfcoding/Southwark/workflows/Windows%20Tests/badge.svg
-	:target: https://github.com/domdfcoding/Southwark/actions?query=workflow%3A%22Windows+Tests%22
+.. |actions_windows| image:: https://github.com/domdfcoding/southwark/workflows/Windows%20Tests/badge.svg
+	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22Windows+Tests%22
 	:alt: Windows Tests Status
 
-.. |actions_macos| image:: https://github.com/domdfcoding/Southwark/workflows/macOS%20Tests/badge.svg
-	:target: https://github.com/domdfcoding/Southwark/actions?query=workflow%3A%22macOS+Tests%22
+.. |actions_macos| image:: https://github.com/domdfcoding/southwark/workflows/macOS%20Tests/badge.svg
+	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22macOS+Tests%22
 	:alt: macOS Tests Status
 
-.. |requires| image:: https://requires.io/github/domdfcoding/Southwark/requirements.svg?branch=master
-	:target: https://requires.io/github/domdfcoding/Southwark/requirements/?branch=master
+.. |requires| image:: https://requires.io/github/domdfcoding/southwark/requirements.svg?branch=master
+	:target: https://requires.io/github/domdfcoding/southwark/requirements/?branch=master
 	:alt: Requirements Status
 
-.. |coveralls| image:: https://img.shields.io/coveralls/github/domdfcoding/Southwark/master?logo=coveralls
-	:target: https://coveralls.io/github/domdfcoding/Southwark?branch=master
+.. |coveralls| image:: https://img.shields.io/coveralls/github/domdfcoding/southwark/master?logo=coveralls
+	:target: https://coveralls.io/github/domdfcoding/southwark?branch=master
 	:alt: Coverage
 
-.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/Southwark?logo=codefactor
-	:target: https://www.codefactor.io/repository/github/domdfcoding/Southwark
+.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/southwark?logo=codefactor
+	:target: https://www.codefactor.io/repository/github/domdfcoding/southwark
 	:alt: CodeFactor Grade
 
 .. |pypi-version| image:: https://img.shields.io/pypi/v/Southwark
@@ -77,19 +77,19 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 	:target: https://pypi.org/project/Southwark/
 	:alt: PyPI - Wheel
 
-.. |license| image:: https://img.shields.io/github/license/domdfcoding/Southwark
-	:target: https://github.com/domdfcoding/Southwark/blob/master/LICENSE
+.. |license| image:: https://img.shields.io/github/license/domdfcoding/southwark
+	:target: https://github.com/domdfcoding/southwark/blob/master/LICENSE
 	:alt: License
 
-.. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/Southwark
+.. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/southwark
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/Southwark/v0.0.0
-	:target: https://github.com/domdfcoding/Southwark/pulse
+.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/southwark/v0.0.0
+	:target: https://github.com/domdfcoding/southwark/pulse
 	:alt: GitHub commits since tagged version
 
-.. |commits-latest| image:: https://img.shields.io/github/last-commit/domdfcoding/Southwark
-	:target: https://github.com/domdfcoding/Southwark/commit/master
+.. |commits-latest| image:: https://img.shields.io/github/last-commit/domdfcoding/southwark
+	:target: https://github.com/domdfcoding/southwark/commit/master
 	:alt: GitHub last commit
 
 .. |maintained| image:: https://img.shields.io/maintenance/yes/2020
@@ -99,8 +99,8 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 	:target: https://github.com/pre-commit/pre-commit
 	:alt: pre-commit
 
-.. |pre_commit_ci| image:: https://results.pre-commit.ci/badge/github/domdfcoding/Southwark/master.svg
-	:target: https://results.pre-commit.ci/latest/github/domdfcoding/Southwark/master
+.. |pre_commit_ci| image:: https://results.pre-commit.ci/badge/github/domdfcoding/southwark/master.svg
+	:target: https://results.pre-commit.ci/latest/github/domdfcoding/southwark/master
 	:alt: pre-commit.ci status
 
 .. end shields
