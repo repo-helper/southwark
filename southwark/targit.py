@@ -89,7 +89,7 @@ class SaveState(NamedTuple):
 	# TODO: changed files
 
 	#: The SHA id of the underlying commit.
-	id: str
+	id: str  # noqa: A003
 
 	#: The name of the user who made the changes.
 	user: str
@@ -104,6 +104,14 @@ class SaveState(NamedTuple):
 	timezone: int
 
 	def format_time(self) -> str:
+		"""
+		Format the save state's time in the following format::
+
+			Thu Oct 29 2020 15:53:52 +0000
+
+		where ``+0000`` represents GMT.
+		"""  # noqa: D400
+
 		time_tuple = time.gmtime(self.time + self.timezone)
 		time_str = time.strftime("%a %b %d %Y %H:%M:%S", time_tuple)
 		timezone_str = format_timezone(self.timezone).decode("UTF-8")
@@ -112,17 +120,17 @@ class SaveState(NamedTuple):
 
 def check_archive_paths(archive: tarfile.TarFile) -> bool:
 	"""
-	Checks the contents of an archive to ensure it does not contain 
+	Checks the contents of an archive to ensure it does not contain
 	any filenames with absolute paths or path traversal.
-	
+
 	For example, the following paths would raise an :exc:`~.BadArchiveError`:
-	
+
 	* ``/usr/bin/malware.sh`` -- this is an absolute path.
 	* ``~/.local/bin/malware.sh`` -- this tries to put the file in the user's home directory.
 	* ``../.local/bin/malware.sh`` -- this uses path traversal to try to get to a parent directory.
 
 	.. seealso:: The warning for :meth:`tarfile.TarFile.extractall` in the Python documentation.
-	
+
 	:param archive:
 	"""  # noqa: D400
 
@@ -246,7 +254,7 @@ class TarGit(os.PathLike):
 						format=tarfile.PAX_FORMAT,
 						fileobj=fp,
 						) as tf:
-					tf.add(str(self.__tmpdir_p), arcname="")
+					tf.add(str(self.__tmpdir_p), arcname='')
 
 				fp.flush()
 

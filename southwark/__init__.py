@@ -51,7 +51,6 @@ import click
 from consolekit.terminal_colours import Fore
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.typing import PathLike
-#from dulwich.ignore import IgnoreFilterManager
 from dulwich.ignore import IgnoreFilterManager
 from dulwich.index import Index, get_unstaged_changes
 from dulwich.objects import Commit, Tag
