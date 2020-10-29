@@ -36,7 +36,7 @@ repos:
    rev: v0.1.0
    hooks:
     - id: ensure-dunder-all
-      files: ^Southwark/.*\.py$
+      files: ^southwark/.*\.py$
 
  - repo: https://github.com/pre-commit/pygrep-hooks
    rev: v1.5.1

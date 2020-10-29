@@ -2,5 +2,5 @@ include __pkginfo__.py
 include LICENSE
 include requirements.txt
 prune **/__pycache__
-recursive-include Southwark *.pyi
-include Southwark/py.typed
+recursive-include southwark *.pyi
+include southwark/py.typed

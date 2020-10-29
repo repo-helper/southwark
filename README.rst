@@ -8,6 +8,9 @@ Southwark
 
 .. end short_desc
 
+(Dulwich is located in the `London Borough of Southwark <https://en.wikipedia.org/wiki/London_Borough_of_Southwark>`_)
+
+Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs more tests.
 
 .. start shields
 
