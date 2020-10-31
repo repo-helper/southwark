@@ -109,7 +109,7 @@ def assert_clean(repo: PathPlus, allow_config: bool = False) -> bool:
 		return True
 
 	else:
-		if allow_config and lines in (
+		if allow_config and lines in {
 				["M repo_helper.yml"],
 				[" M repo_helper.yml"],
 				["A repo_helper.yml"],
@@ -122,7 +122,7 @@ def assert_clean(repo: PathPlus, allow_config: bool = False) -> bool:
 				["D git_helper.yml"],
 				[" D git_helper.yml"],
 				["AM git_helper.yml"],
-				):
+				}:
 			return True
 
 		else:
@@ -132,6 +132,13 @@ def assert_clean(repo: PathPlus, allow_config: bool = False) -> bool:
 				click.echo(Fore.RED(f"  {line}"), err=True)
 
 			return False
+
+
+status_codes: Dict[str, str] = {
+		"add": "A",
+		"delete": "D",
+		"modify": "M",
+		}
 
 
 def check_git_status(repo_path: PathLike) -> Tuple[bool, List[str]]:
@@ -146,7 +153,7 @@ def check_git_status(repo_path: PathLike) -> Tuple[bool, List[str]]:
 	stat = status(repo_path)
 	files: Dict[bytes, str] = {}
 
-	for key, code in [("add", "A"), ("delete", "D"), ("modify", "M")]:
+	for key, code in status_codes.items():
 		for file in stat.staged[key]:
 			if file in files:
 				files[file] += code

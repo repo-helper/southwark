@@ -170,8 +170,6 @@ class Log:
 		:param colour: Show coloured output.
 		"""
 
-		# stdlib
-		from typing import Union
 		kwargs: Mapping[str, Union[None, int, bool]] = dict(max_entries=max_entries, reverse=reverse)
 
 		if from_date is not None and from_tag is not None:
