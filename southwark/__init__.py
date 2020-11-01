@@ -109,7 +109,8 @@ def assert_clean(repo: PathPlus, allow_config: bool = False) -> bool:
 		return True
 
 	else:
-		if allow_config and lines in {
+		# This must not be a set, as lists are unhashable.
+		if allow_config and lines in (
 				["M repo_helper.yml"],
 				[" M repo_helper.yml"],
 				["A repo_helper.yml"],
@@ -122,7 +123,7 @@ def assert_clean(repo: PathPlus, allow_config: bool = False) -> bool:
 				["D git_helper.yml"],
 				[" D git_helper.yml"],
 				["AM git_helper.yml"],
-				}:
+				):
 			return True
 
 		else:
