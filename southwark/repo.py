@@ -44,7 +44,7 @@ Modified Dulwich repository object.
 
 # stdlib
 import os
-from typing import Any, AnyStr, Optional
+from typing import Any, Optional, Union
 
 # 3rd party
 from dulwich import repo
@@ -98,7 +98,7 @@ def get_user_identity(config: StackedConfig, kind: Optional[str] = None) -> byte
 			email = None
 
 	if user is None or email is None:
-		default_user, default_email = repo._get_default_identity()
+		default_user, default_email = repo._get_default_identity()  # type: ignore
 
 		if user is None:
 			user = default_user.encode('utf-8')
@@ -127,15 +127,15 @@ class Repo(repo.Repo):
 
 	def do_commit(
 			self,
-			message: Optional[AnyStr] = None,
-			committer: Optional[AnyStr] = None,
-			author: Optional[AnyStr] = None,
+			message: Optional[Union[str, bytes]] = None,
+			committer: Optional[Union[str, bytes]] = None,
+			author: Optional[Union[str, bytes]] = None,
 			commit_timestamp: Optional[float] = None,
 			commit_timezone: Optional[float] = None,
 			author_timestamp: Optional[float] = None,
 			author_timezone: Optional[float] = None,
 			tree: Optional[Any] = None,
-			encoding: Optional[AnyStr] = None,
+			encoding: Optional[Union[str, bytes]] = None,
 			ref: bytes = b'HEAD',
 			merge_heads: Optional[Any] = None
 			) -> bytes:
@@ -169,16 +169,16 @@ class Repo(repo.Repo):
 		if author is None:
 			author = get_user_identity(config, kind='AUTHOR')
 
-		return super().do_commit(
-				message=message,
-				committer=committer,
-				author=author,
-				commit_timestamp=commit_timestamp,
-				commit_timezone=commit_timezone,
-				author_timestamp=author_timestamp,
-				author_timezone=author_timezone,
-				tree=tree,
-				encoding=encoding,
-				ref=ref,
-				merge_heads=merge_heads,
-				)
+		return super().do_commit(  # type: ignore
+			message=message,
+			committer=committer,
+			author=author,
+			commit_timestamp=commit_timestamp,
+			commit_timezone=commit_timezone,
+			author_timestamp=author_timestamp,
+			author_timezone=author_timezone,
+			tree=tree,
+			encoding=encoding,
+			ref=ref,
+			merge_heads=merge_heads,
+			)
