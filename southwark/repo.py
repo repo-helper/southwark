@@ -167,7 +167,13 @@ class Repo(repo.Repo):
 			committer = get_user_identity(config, kind='COMMITTER')
 
 		if author is None:
-			author = get_user_identity(config, kind='AUTHOR')
+			try:
+				author = get_user_identity(config, kind='AUTHOR')
+			except ModuleNotFoundError as e:
+				if str(e) == "No module named 'pwd'":
+					author = committer
+				else:
+					raise
 
 		return super().do_commit(
 				message=message,
