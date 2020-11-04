@@ -117,7 +117,7 @@ class Repo(repo.Repo):
 
 	A git repository backed by local disk.
 
-	To open an existing repository, call the contructor with
+	To open an existing repository, call the constructor with
 	the path of the repository.
 
 	To create a new repository, use the Repo.init class method.
@@ -169,16 +169,16 @@ class Repo(repo.Repo):
 		if author is None:
 			author = get_user_identity(config, kind='AUTHOR')
 
-		return super().do_commit(  # type: ignore
-			message=message,
-			committer=committer,
-			author=author,
-			commit_timestamp=commit_timestamp,
-			commit_timezone=commit_timezone,
-			author_timestamp=author_timestamp,
-			author_timezone=author_timezone,
-			tree=tree,
-			encoding=encoding,
-			ref=ref,
-			merge_heads=merge_heads,
-			)
+		return super().do_commit(
+				message=message,
+				committer=committer,
+				author=author,
+				commit_timestamp=commit_timestamp,
+				commit_timezone=commit_timezone,
+				author_timestamp=author_timestamp,
+				author_timezone=author_timezone,
+				tree=tree,
+				encoding=encoding,
+				ref=ref,
+				merge_heads=merge_heads,
+				)
