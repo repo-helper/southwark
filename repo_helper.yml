@@ -28,3 +28,5 @@ classifiers:
  - 'Environment :: Console'
  - 'Intended Audience :: Developers'
  - 'Topic :: Software Development :: Libraries :: Python Modules'
+
+use_experimental_backend: true
