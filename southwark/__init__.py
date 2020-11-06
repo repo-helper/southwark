@@ -25,7 +25,7 @@ Extensions to the Dulwich Git library.
 #  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 #  OR OTHER DEALINGS IN THE SOFTWARE.
 #
-#  format_commit, get_untracked_paths and status
+#  format_commit, get_untracked_paths, get_tree_changes and status
 #  based on https://github.com/dulwich/dulwich
 #  Copyright (C) 2013 Jelmer Vernooij <jelmer@jelmer.uk>
 #  |  Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -44,7 +44,7 @@ Extensions to the Dulwich Git library.
 # stdlib
 import os
 from operator import itemgetter
-from typing import Dict, Iterator, List, Tuple, Union
+from typing import Dict, Iterator, List, NamedTuple, Tuple, Union
 
 # 3rd party
 import click
@@ -54,8 +54,9 @@ from domdf_python_tools.typing import PathLike
 from dulwich.ignore import IgnoreFilterManager
 from dulwich.index import Index, get_unstaged_changes
 from dulwich.objects import Commit, Tag
-from dulwich.porcelain import GitStatus, get_tree_changes, open_repo_closing, path_to_tree_path
+from dulwich.porcelain import open_repo_closing, path_to_tree_path
 from dulwich.repo import Repo
+from typing_extensions import TypedDict
 
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2020 Dominic Davis-Foster"
@@ -69,7 +70,32 @@ __all__ = [
 		"assert_clean",
 		"get_untracked_paths",
 		"status",
+		"StagedDict",
+		"GitStatus",
+		"get_tree_changes",
 		]
+
+
+class StagedDict(TypedDict):
+	"""
+	The values are lists of filenames, relative to the repository root.
+
+	.. versionadded:: 0.4.0
+	"""
+
+	add: List[PathPlus]
+	delete: List[PathPlus]
+	modify: List[PathPlus]
+
+
+class GitStatus(NamedTuple):
+	"""
+	.. versionadded:: 0.4.0
+	"""
+
+	staged: StagedDict
+	unstaged: List[PathPlus]
+	untracked: List[PathPlus]
 
 
 def get_tags(repo: Union[Repo, PathLike] = ".") -> Dict[str, str]:
@@ -155,7 +181,7 @@ def check_git_status(repo_path: PathLike) -> Tuple[bool, List[str]]:
 	files: Dict[bytes, str] = {}
 
 	for key, code in status_codes.items():
-		for file in stat.staged[key]:
+		for file in stat.staged[key]:  # type: ignore
 			if file in files:
 				files[file] += code
 			else:
@@ -173,7 +199,7 @@ def check_git_status(repo_path: PathLike) -> Tuple[bool, List[str]]:
 		longest = max(len(v) for v in files.values()) + 1
 
 		status_code = ''.join(sorted(codes)).ljust(longest, ' ')
-		str_lines.append(f"{status_code}{file.decode('UTF-8')}")
+		str_lines.append(f"{status_code}{file!s}")
 
 	# with in_directory(repo_path):
 	#
@@ -220,6 +246,44 @@ def get_untracked_paths(path: PathLike, index: Index) -> Iterator[str]:
 				yield os.path.relpath(filepath, path)
 
 
+def get_tree_changes(repo: Union[PathLike, Repo]) -> StagedDict:
+	"""
+	Return add/delete/modify changes to tree by comparing index to HEAD.
+
+	:param repo: repo path or object
+	Returns: dict with lists for each type of change
+
+	.. versionadded:: 0.4.0
+	"""
+
+	with open_repo_closing(repo) as r:
+		index = r.open_index()
+
+		# Compares the Index to the HEAD & determines changes
+		# Iterate through the changes and report add/delete/modify
+		# TODO: call out to dulwich.diff_tree somehow.
+		tracked_changes: StagedDict = {
+				'add': [],
+				'delete': [],
+				'modify': [],
+				}
+		try:
+			tree_id = r[b'HEAD'].tree  # type: ignore
+		except KeyError:
+			tree_id = None
+
+		for change in index.changes_from_tree(r.object_store, tree_id):
+			if not change[0][0]:
+				tracked_changes['add'].append(PathPlus(change[0][1].decode("UTF-8")))
+			elif not change[0][1]:
+				tracked_changes['delete'].append(PathPlus(change[0][0].decode("UTF-8")))
+			elif change[0][0] == change[0][1]:
+				tracked_changes['modify'].append(PathPlus(change[0][0].decode("UTF-8")))
+			else:
+				raise NotImplementedError('git mv ops not yet supported')
+		return tracked_changes
+
+
 def status(repo: Union[Repo, PathLike] = ".") -> GitStatus:
 	"""
 	Returns staged, unstaged, and untracked changes relative to the HEAD.
@@ -240,10 +304,14 @@ def status(repo: Union[Repo, PathLike] = ".") -> GitStatus:
 		index = r.open_index()
 		normalizer = r.get_blob_normalizer()
 		filter_callback = normalizer.checkin_normalize
-		unstaged_changes = list(get_unstaged_changes(index, str(r.path), filter_callback))
+		unstaged_changes = [
+				PathPlus(p.decode("UTF-8")) for p in get_unstaged_changes(index, str(r.path), filter_callback)
+				]
 
 		# Remove ignored files
 		ignore_manager = IgnoreFilterManager.from_repo(r)
-		untracked_changes = [p for p in get_untracked_paths(r.path, index) if not ignore_manager.is_ignored(p)]
+		untracked_changes = [
+				PathPlus(p) for p in get_untracked_paths(r.path, index) if not ignore_manager.is_ignored(p)
+				]
 
 		return GitStatus(tracked_changes, unstaged_changes, untracked_changes)

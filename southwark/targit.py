@@ -44,10 +44,10 @@ from domdf_python_tools.typing import PathLike
 from dulwich.objects import format_timezone
 from dulwich.repo import Repo
 from filelock import FileLock, Timeout
-from typing_extensions import Literal, TypedDict
+from typing_extensions import Literal
 
 # this package
-from southwark import status
+from southwark import StagedDict, status
 
 __all__ = [
 		"Modes",
@@ -67,17 +67,12 @@ Valid modes for opening :class:`~.TarGit` archives in
 * ``'a'`` -- Read and write access to an existing archive.
 """
 
+Status = StagedDict
+"""
+Represents the dictionary returned by :meth:`TarGit.status() <.TarGit.status>`.
 
-class Status(TypedDict):
-	"""
-	Represents the dictionary returned by :meth:`TarGit.status() <.TarGit.status>`.
-
-	The values are lists of filenames, relative to the TarGit root.
-	"""
-
-	add: List[str]
-	delete: List[str]
-	modify: List[str]
+The values are lists of filenames, relative to the TarGit root.
+"""
 
 
 @prettify_docstrings
@@ -261,7 +256,7 @@ class TarGit(os.PathLike):
 			return True
 		return False
 
-	def status(self) -> Status:
+	def status(self) -> StagedDict:
 		"""
 		Returns the status of the TarGit archive.
 
@@ -278,7 +273,7 @@ class TarGit(os.PathLike):
 		current_status = status(self.__tmpdir_p)
 
 		for file in (*current_status.unstaged, *current_status.untracked):
-			self.__repo.stage(file)
+			self.__repo.stage(str(file))
 
 		return status(self.__tmpdir_p).staged
 
