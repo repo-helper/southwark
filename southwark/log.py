@@ -47,7 +47,7 @@ __all__ = ["Log"]
 
 yellow_meta_left = Fore.YELLOW(" (")
 yellow_meta_comma = Fore.YELLOW(", ")
-yellow_meta_right = Fore.YELLOW(")")
+yellow_meta_right = Fore.YELLOW(')')
 
 
 class Log:
@@ -60,7 +60,7 @@ class Log:
 	#: The git repository.
 	repo: Repo
 
-	def __init__(self, repo: Union[Repo, PathLike] = "."):
+	def __init__(self, repo: Union[Repo, PathLike] = '.'):
 		if isinstance(repo, Repo):
 			self.repo = repo
 		else:

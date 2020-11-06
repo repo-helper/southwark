@@ -80,10 +80,10 @@ def get_user_identity(config: StackedConfig, kind: Optional[str] = None) -> byte
 	if kind:
 		user_uc = os.environ.get("GIT_" + kind + "_NAME")
 		if user_uc is not None:
-			user = user_uc.encode('utf-8')
+			user = user_uc.encode("UTF-8")
 		email_uc = os.environ.get("GIT_" + kind + "_EMAIL")
 		if email_uc is not None:
-			email = email_uc.encode('utf-8')
+			email = email_uc.encode("UTF-8")
 
 	if user is None:
 		try:
@@ -101,9 +101,9 @@ def get_user_identity(config: StackedConfig, kind: Optional[str] = None) -> byte
 		default_user, default_email = repo._get_default_identity()  # type: ignore
 
 		if user is None:
-			user = default_user.encode('utf-8')
+			user = default_user.encode("UTF-8")
 		if email is None:
-			email = default_email.encode('utf-8')
+			email = default_email.encode("UTF-8")
 
 	if email.startswith(b'<') and email.endswith(b'>'):
 		email = email[1:-1]
@@ -164,11 +164,11 @@ class Repo(repo.Repo):
 		config = self.get_config_stack()
 
 		if committer is None:
-			committer = get_user_identity(config, kind='COMMITTER')
+			committer = get_user_identity(config, kind="COMMITTER")
 
 		if author is None:
 			try:
-				author = get_user_identity(config, kind='AUTHOR')
+				author = get_user_identity(config, kind="AUTHOR")
 			except ModuleNotFoundError as e:
 				if str(e) == "No module named 'pwd'":
 					author = committer

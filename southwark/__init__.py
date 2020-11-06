@@ -98,7 +98,7 @@ class GitStatus(NamedTuple):
 	untracked: List[PathPlus]
 
 
-def get_tags(repo: Union[Repo, PathLike] = ".") -> Dict[str, str]:
+def get_tags(repo: Union[Repo, PathLike] = '.') -> Dict[str, str]:
 	"""
 	Returns a mapping of commit SHAs to tags.
 
@@ -162,9 +162,9 @@ def assert_clean(repo: PathPlus, allow_config: bool = False) -> bool:
 
 
 status_codes: Dict[str, str] = {
-		"add": "A",
-		"delete": "D",
-		"modify": "M",
+		"add": 'A',
+		"delete": 'D',
+		"modify": 'M',
 		}
 
 
@@ -189,9 +189,9 @@ def check_git_status(repo_path: PathLike) -> Tuple[bool, List[str]]:
 
 	for file in stat.unstaged:
 		if file in files:
-			files[file] += "M"
+			files[file] += 'M'
 		else:
-			files[file] = "M"
+			files[file] = 'M'
 
 	str_lines = []
 
@@ -263,9 +263,9 @@ def get_tree_changes(repo: Union[PathLike, Repo]) -> StagedDict:
 		# Iterate through the changes and report add/delete/modify
 		# TODO: call out to dulwich.diff_tree somehow.
 		tracked_changes: StagedDict = {
-				'add': [],
-				'delete': [],
-				'modify': [],
+				"add": [],
+				"delete": [],
+				"modify": [],
 				}
 		try:
 			tree_id = r[b'HEAD'].tree  # type: ignore
@@ -274,17 +274,17 @@ def get_tree_changes(repo: Union[PathLike, Repo]) -> StagedDict:
 
 		for change in index.changes_from_tree(r.object_store, tree_id):
 			if not change[0][0]:
-				tracked_changes['add'].append(PathPlus(change[0][1].decode("UTF-8")))
+				tracked_changes["add"].append(PathPlus(change[0][1].decode("UTF-8")))
 			elif not change[0][1]:
-				tracked_changes['delete'].append(PathPlus(change[0][0].decode("UTF-8")))
+				tracked_changes["delete"].append(PathPlus(change[0][0].decode("UTF-8")))
 			elif change[0][0] == change[0][1]:
-				tracked_changes['modify'].append(PathPlus(change[0][0].decode("UTF-8")))
+				tracked_changes["modify"].append(PathPlus(change[0][0].decode("UTF-8")))
 			else:
-				raise NotImplementedError('git mv ops not yet supported')
+				raise NotImplementedError("git mv ops not yet supported")
 		return tracked_changes
 
 
-def status(repo: Union[Repo, PathLike] = ".") -> GitStatus:
+def status(repo: Union[Repo, PathLike] = '.') -> GitStatus:
 	"""
 	Returns staged, unstaged, and untracked changes relative to the HEAD.
 

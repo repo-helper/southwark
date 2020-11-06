@@ -58,7 +58,7 @@ __all__ = [
 		"TarGit",
 		]
 
-Modes = Literal["r", "w", "a"]
+Modes = Literal['r', 'w', 'a']
 """
 Valid modes for opening :class:`~.TarGit` archives in
 
@@ -131,7 +131,7 @@ def check_archive_paths(archive: tarfile.TarFile) -> bool:
 
 	for member_name in archive.getnames():
 		member_name_p = PathPlus(member_name)
-		if member_name_p.is_absolute() or ".." in member_name_p.parts or member_name.startswith("~"):
+		if member_name_p.is_absolute() or ".." in member_name_p.parts or member_name.startswith('~'):
 			raise BadArchiveError
 
 	return True
@@ -163,7 +163,7 @@ class TarGit(os.PathLike):
 	__repo: Repo
 	__lock: Optional[FileLock]
 
-	def __init__(self, filename: PathLike, mode: Modes = "r"):
+	def __init__(self, filename: PathLike, mode: Modes = 'r'):
 		self.filename = PathPlus(filename)
 		self.__closed: bool = True
 
@@ -171,7 +171,7 @@ class TarGit(os.PathLike):
 		self.__tmpdir_p = PathPlus(self.__tmpdir.name)
 		atexit.register(self.__exit_handler)
 
-		if mode in {"w", "a"}:
+		if mode in {'w', 'a'}:
 			lock_file = str(self.filename.with_suffix(self.filename.suffix + ".lock"))
 			self.__lock = FileLock(lock_file, timeout=1)
 			try:
@@ -181,7 +181,7 @@ class TarGit(os.PathLike):
 		else:
 			self.__lock = None
 
-		if mode in {"r", "a"}:
+		if mode in {'r', 'a'}:
 			if not self.exists():
 				raise FileNotFoundError(f"No such TarGit file '{self.filename!s}'")
 
@@ -197,7 +197,7 @@ class TarGit(os.PathLike):
 			self.__mode = mode
 			self.__closed = False
 
-		elif mode in {"w"}:
+		elif mode in {'w'}:
 			if self.exists():
 				raise FileExistsError(f"TarGit file '{self.filename!s}' already exists.")
 
@@ -223,7 +223,7 @@ class TarGit(os.PathLike):
 
 		if self.closed:
 			raise OSError("IO operation on closed TarGit file.")
-		elif self.__mode not in {"w", "a"}:
+		elif self.__mode not in {'w', 'a'}:
 			raise OSError("Cannot write to TarGit file opened in read-only mode.")
 
 		current_status = self.status()
@@ -267,7 +267,7 @@ class TarGit(os.PathLike):
 
 		if self.closed:
 			raise OSError("IO operation on closed TarGit file.")
-		elif self.__mode not in {"w", "a"}:
+		elif self.__mode not in {'w', 'a'}:
 			return {"add": [], "delete": [], "modify": []}
 
 		current_status = status(self.__tmpdir_p)
@@ -280,7 +280,7 @@ class TarGit(os.PathLike):
 	def __do_commit(self, message: str):
 		if self.closed:
 			raise OSError("IO operation on closed TarGit file.")
-		elif self.__mode not in {"w", "a"}:
+		elif self.__mode not in {'w', 'a'}:
 			raise OSError("Cannot write to TarGit file opened in read-only mode.")
 
 		username = f"{os.getlogin()} <{os.getlogin()}@{socket.gethostname()}>"
