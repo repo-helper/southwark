@@ -44,7 +44,7 @@ Extensions to the Dulwich Git library.
 # stdlib
 import os
 from operator import itemgetter
-from typing import Dict, Iterator, List, NamedTuple, Tuple, Union
+from typing import Dict, Iterator, List, NamedTuple, Sequence, Tuple, Union
 
 # 3rd party
 import click
@@ -119,7 +119,10 @@ def get_tags(repo: Union[Repo, PathLike] = '.') -> Dict[str, str]:
 	return tags
 
 
-def assert_clean(repo: PathPlus, allow_config: bool = False) -> bool:
+_prefixes = {"M ", " M", "A ", " A", "AM ", "D ", " D"}
+
+
+def assert_clean(repo: PathPlus, allow_config: Sequence[str] = ()) -> bool:
 	"""
 	Returns :py:obj:`True` if the working directory is clean.
 
@@ -136,20 +139,7 @@ def assert_clean(repo: PathPlus, allow_config: bool = False) -> bool:
 
 	else:
 		# This must not be a set, as lists are unhashable.
-		if allow_config and lines in (
-				["M repo_helper.yml"],
-				[" M repo_helper.yml"],
-				["A repo_helper.yml"],
-				[" A repo_helper.yml"],
-				["AM repo_helper.yml"],
-				["M git_helper.yml"],
-				[" M git_helper.yml"],
-				["A git_helper.yml"],
-				[" A git_helper.yml"],
-				["D git_helper.yml"],
-				[" D git_helper.yml"],
-				["AM git_helper.yml"],
-				):
+		if allow_config and lines in [prefix + filename for prefix in _prefixes for filename in allow_config]:
 			return True
 
 		else:
