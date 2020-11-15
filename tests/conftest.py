@@ -20,4 +20,4 @@ def tmp_repo(tmp_pathplus: PathPlus) -> PathPlus:
 @pytest.fixture()
 def original_datadir(request):
 	# Work around pycharm confusing datadir with test file.
-	return pathlib.Path(os.path.splitext(request.module.__file__)[0] + "_")
+	return pathlib.Path(os.path.splitext(request.module.__file__)[0] + '_')
