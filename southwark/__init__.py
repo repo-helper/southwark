@@ -61,7 +61,7 @@ from typing_extensions import TypedDict
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2020 Dominic Davis-Foster"
 __license__: str = "MIT License"
-__version__: str = "0.4.0"
+__version__: str = "0.5.0"
 __email__: str = "dominic@davis-foster.co.uk"
 
 __all__ = [
@@ -80,7 +80,7 @@ class StagedDict(TypedDict):
 	"""
 	The values are lists of filenames, relative to the repository root.
 
-	.. versionadded:: 0.4.0
+	.. versionadded:: 0.5.0
 	"""
 
 	add: List[PathPlus]
@@ -90,7 +90,7 @@ class StagedDict(TypedDict):
 
 class GitStatus(NamedTuple):
 	"""
-	.. versionadded:: 0.4.0
+	.. versionadded:: 0.5.0
 	"""
 
 	staged: StagedDict
@@ -243,7 +243,7 @@ def get_tree_changes(repo: Union[PathLike, Repo]) -> StagedDict:
 	:param repo: repo path or object
 	Returns: dict with lists for each type of change
 
-	.. versionadded:: 0.4.0
+	.. versionadded:: 0.5.0
 	"""
 
 	with open_repo_closing(repo) as r:
