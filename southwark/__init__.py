@@ -47,7 +47,7 @@ from operator import itemgetter
 from typing import Dict, Iterator, List, NamedTuple, Sequence, Tuple, Union
 
 # 3rd party
-import click
+from click import echo
 from consolekit.terminal_colours import Fore
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.typing import PathLike
@@ -143,10 +143,10 @@ def assert_clean(repo: PathPlus, allow_config: Sequence[str] = ()) -> bool:
 			return True
 
 		else:
-			click.echo(Fore.RED("Git working directory is not clean:"), err=True)
+			echo(Fore.RED("Git working directory is not clean:"), err=True)
 
 			for line in lines:
-				click.echo(Fore.RED(f"  {line}"), err=True)
+				echo(Fore.RED(f"  {line}"), err=True)
 
 			return False
 
