@@ -57,6 +57,7 @@ from dulwich.objects import Commit, Tag
 from dulwich.porcelain import open_repo_closing, path_to_tree_path
 from dulwich.repo import Repo
 from typing_extensions import TypedDict
+from itertools import chain
 
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2020 Dominic Davis-Foster"
@@ -119,10 +120,7 @@ def get_tags(repo: Union[Repo, PathLike] = '.') -> Dict[str, str]:
 	return tags
 
 
-_prefixes = {"M ", " M", "A ", " A", "AM ", "D ", " D"}
-
-
-def assert_clean(repo: PathPlus, allow_config: Sequence[str] = ()) -> bool:
+def assert_clean(repo: PathPlus, allow_config: Sequence[PathLike] = ()) -> bool:
 	"""
 	Returns :py:obj:`True` if the working directory is clean.
 
@@ -132,23 +130,31 @@ def assert_clean(repo: PathPlus, allow_config: Sequence[str] = ()) -> bool:
 	:param allow_config:
 	"""
 
-	stat, lines = check_git_status(repo)
+	allow_config = [PathPlus(filename) for filename in allow_config]
 
-	if stat:
-		return True
+	stat = status(repo)
 
-	else:
-		# This must not be a set, as lists are unhashable.
-		if allow_config and lines in [prefix + filename for prefix in _prefixes for filename in allow_config]:
+	modified_files = chain.from_iterable([
+			stat.staged["add"],
+			stat.staged["delete"],
+			stat.staged["modify"],
+			stat.unstaged,
+			])
+
+	if modified_files:
+		for filename in modified_files:
+			if filename not in allow_config:
+				break
+		else:
 			return True
 
-		else:
-			echo(Fore.RED("Git working directory is not clean:"), err=True)
+	# If we get to here the directory isn't clean
+	echo(Fore.RED("Git working directory is not clean:"), err=True)
 
-			for line in lines:
-				echo(Fore.RED(f"  {line}"), err=True)
+	for line in format_git_status(stat):
+		echo(Fore.RED(f"  {line}"), err=True)
 
-			return False
+	return False
 
 
 status_codes: Dict[str, str] = {
@@ -167,29 +173,7 @@ def check_git_status(repo_path: PathLike) -> Tuple[bool, List[str]]:
 	:return: Whether the git working directory is clean, and the list of uncommitted files if it isn't.
 	"""
 
-	stat = status(repo_path)
-	files: Dict[bytes, str] = {}
-
-	for key, code in status_codes.items():
-		for file in stat.staged[key]:  # type: ignore
-			if file in files:
-				files[file] += code
-			else:
-				files[file] = code
-
-	for file in stat.unstaged:
-		if file in files:
-			files[file] += 'M'
-		else:
-			files[file] = 'M'
-
-	str_lines = []
-
-	for file, codes in sorted(files.items(), key=itemgetter(0)):
-		longest = max(len(v) for v in files.values()) + 1
-
-		status_code = ''.join(sorted(codes)).ljust(longest, ' ')
-		str_lines.append(f"{status_code}{file!s}")
+	str_lines = list(format_git_status(status(repo_path)))
 
 	# with in_directory(repo_path):
 	#
@@ -201,6 +185,39 @@ def check_git_status(repo_path: PathLike) -> Tuple[bool, List[str]]:
 	#
 	# str_lines = [line.decode("UTF-8") for line in lines]
 	return not bool(str_lines), str_lines
+
+
+def format_git_status(status: GitStatus) -> Iterator[str]:
+	"""
+	Format the ``git`` status of the given repository for output to the terminal.
+
+	:param status:
+
+	:return: An iterator over the formatted list of uncommitted files.
+
+	.. versionadded:: 0.5.2
+	"""
+
+	files: Dict[bytes, str] = {}
+
+	for key, code in status_codes.items():
+		for file in status.staged[key]:  # type: ignore
+			if file in files:
+				files[file] += code
+			else:
+				files[file] = code
+
+	for file in status.unstaged:
+		if file in files:
+			files[file] += 'M'
+		else:
+			files[file] = 'M'
+
+	for file, codes in sorted(files.items(), key=itemgetter(0)):
+		longest = max(len(v) for v in files.values()) + 1
+
+		status_code = ''.join(sorted(codes)).ljust(longest, ' ')
+		yield f"{status_code}{file!s}"
 
 
 status_excludes = {".git", ".tox", ".mypy_cache", ".pytest_cache", "venv", ".venv"}
