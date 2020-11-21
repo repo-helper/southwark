@@ -43,6 +43,7 @@ Extensions to the Dulwich Git library.
 
 # stdlib
 import os
+from itertools import chain
 from operator import itemgetter
 from typing import Dict, Iterator, List, NamedTuple, Sequence, Tuple, Union
 
@@ -57,7 +58,6 @@ from dulwich.objects import Commit, Tag
 from dulwich.porcelain import open_repo_closing, path_to_tree_path
 from dulwich.repo import Repo
 from typing_extensions import TypedDict
-from itertools import chain
 
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2020 Dominic Davis-Foster"
