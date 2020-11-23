@@ -58,7 +58,7 @@ __all__ = [
 		"TarGit",
 		]
 
-Modes = Literal['r', 'w', 'a']
+Modes = Literal["r", "w", "a"]
 """
 Valid modes for opening :class:`~.TarGit` archives in
 
