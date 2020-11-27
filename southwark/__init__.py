@@ -75,6 +75,7 @@ __all__ = [
 		"StagedDict",
 		"GitStatus",
 		"get_tree_changes",
+		"clone",
 		]
 
 
