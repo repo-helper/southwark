@@ -63,7 +63,7 @@ from typing_extensions import TypedDict
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2020 Dominic Davis-Foster"
 __license__: str = "MIT License"
-__version__: str = "0.5.2"
+__version__: str = "0.6.0"
 __email__: str = "dominic@davis-foster.co.uk"
 
 __all__ = [
@@ -83,7 +83,7 @@ class StagedDict(TypedDict):
 	"""
 	The values are lists of filenames, relative to the repository root.
 
-	.. versionadded:: 0.5.2
+	.. versionadded:: 0.6.0
 	"""
 
 	add: List[PathPlus]
@@ -95,7 +95,7 @@ class GitStatus(NamedTuple):
 	"""
 	Represents the output of :func:`~.status`.
 
-	.. versionadded:: 0.5.2
+	.. versionadded:: 0.6.0
 	"""
 
 	staged: StagedDict
@@ -199,7 +199,7 @@ def format_git_status(status: GitStatus) -> Iterator[str]:
 
 	:return: An iterator over the formatted list of uncommitted files.
 
-	.. versionadded:: 0.5.2
+	.. versionadded:: 0.6.0
 	"""
 
 	files: Dict[bytes, str] = {}
@@ -265,7 +265,7 @@ def get_tree_changes(repo: Union[PathLike, Repo]) -> StagedDict:
 
 	:returns: Dictionary containing changes for each type of change.
 
-	.. versionadded:: 0.5.2
+	.. versionadded:: 0.6.0
 	"""
 
 	with open_repo_closing(repo) as r:
