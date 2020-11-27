@@ -25,7 +25,7 @@ Extensions to the Dulwich Git library.
 #  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 #  OR OTHER DEALINGS IN THE SOFTWARE.
 #
-#  format_commit, get_untracked_paths, get_tree_changes and status
+#  format_commit, get_untracked_paths, get_tree_changes, clone and status
 #  based on https://github.com/dulwich/dulwich
 #  Copyright (C) 2013 Jelmer Vernooij <jelmer@jelmer.uk>
 #  |  Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -43,9 +43,10 @@ Extensions to the Dulwich Git library.
 
 # stdlib
 import os
+import shutil
 from itertools import chain
 from operator import itemgetter
-from typing import Dict, Iterator, List, NamedTuple, Sequence, Tuple, Union
+from typing import IO, Dict, Iterator, List, NamedTuple, Optional, Sequence, Tuple, Union
 
 # 3rd party
 from click import echo
@@ -54,8 +55,8 @@ from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.typing import PathLike
 from dulwich.ignore import IgnoreFilterManager
 from dulwich.index import Index, get_unstaged_changes
-from dulwich.objects import Commit, Tag
-from dulwich.porcelain import open_repo_closing, path_to_tree_path
+from dulwich.objects import Commit, ShaFile, Tag
+from dulwich.porcelain import default_bytes_err_stream, fetch, open_repo_closing, path_to_tree_path
 from dulwich.repo import Repo
 from typing_extensions import TypedDict
 
@@ -91,6 +92,8 @@ class StagedDict(TypedDict):
 
 class GitStatus(NamedTuple):
 	"""
+	Represents the output of :func:`~.status`.
+
 	.. versionadded:: 0.5.2
 	"""
 
@@ -255,10 +258,11 @@ def get_untracked_paths(path: PathLike, index: Index) -> Iterator[str]:
 
 def get_tree_changes(repo: Union[PathLike, Repo]) -> StagedDict:
 	"""
-	Return add/delete/modify changes to tree by comparing index to HEAD.
+	Return add/delete/modify changes to tree by comparing the index to HEAD.
 
-	:param repo: repo path or object
-	Returns: dict with lists for each type of change
+	:param repo: repo path or object.
+
+	:returns: Dictionary containing changes for each type of change.
 
 	.. versionadded:: 0.5.2
 	"""
@@ -322,3 +326,82 @@ def status(repo: Union[Repo, PathLike] = '.') -> GitStatus:
 				]
 
 		return GitStatus(tracked_changes, unstaged_changes, untracked_changes)
+
+
+def clone(
+		source: Union[str, bytes],
+		target: Union[str, bytes, None] = None,
+		bare: bool = False,
+		checkout: Optional[bool] = None,
+		errstream: IO = default_bytes_err_stream,
+		origin: bytes = b"origin",
+		depth: Optional[int] = None,
+		**kwargs,
+		):
+	"""
+	Clone a local or remote git repository.
+
+	:param source: Path or URL for source repository
+	:param target: Path to target repository (optional)
+	:param bare: Whether to create a bare repository
+	:param checkout: Whether to check-out HEAD after cloning
+	:param errstream: Optional stream to write progress to
+	:param origin: Name of remote from the repository used to clone
+	:param depth: Depth to fetch at
+
+	:returns: The new repository
+
+	.. versionadded:: 0.6.0
+	"""
+
+	# this package
+	from southwark.repo import Repo
+
+	if checkout is None:
+		checkout = (not bare)
+	if checkout and bare:
+		raise TypeError("checkout and bare are incompatible")
+
+	if not isinstance(source, bytes):
+		source = source.encode("UTF-8")
+
+	if target is None:
+		target = source.split(b'/')[-1]
+
+	if not os.path.exists(target):  # type: ignore
+		os.mkdir(target)
+
+	if bare:
+		r: Repo = Repo.init_bare(target)
+	else:
+		r = Repo.init(target)
+
+	reflog_message = b'clone: from ' + source
+
+	try:
+		target_config = r.get_config()
+
+		target_config.set((b'remote', origin), b'url', source)
+		target_config.set((b'remote', origin), b'fetch', b'+refs/heads/*:refs/remotes/' + origin + b'/*')
+		target_config.write_to_path()
+		fetch_result = fetch(r, origin, errstream=errstream, message=reflog_message, depth=depth, **kwargs)
+
+		head: Optional[ShaFile]
+
+		try:
+			head = r[fetch_result.refs[b'HEAD']]
+		except KeyError:
+			head = None
+		else:
+			r[b'HEAD'] = head.id
+
+		if checkout and not bare and head is not None:
+			errstream.write(b'Checking out ' + head.id + b'\n')
+			r.reset_index(head.tree)  # type: ignore   # TODO
+
+	except BaseException:
+		shutil.rmtree(target)
+		r.close()
+		raise
+
+	return r

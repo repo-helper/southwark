@@ -188,3 +188,17 @@ class Repo(repo.Repo):
 				ref=ref,
 				merge_heads=merge_heads,
 				)
+
+	def _get_user_identity(
+			self,
+			config: "StackedConfig",
+			kind: Optional[str] = None,
+			) -> bytes:
+		"""
+		Determine the identity to use for new commits.
+
+		:param config:
+		:param kind:
+		"""
+
+		return get_user_identity(config)
