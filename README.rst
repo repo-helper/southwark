@@ -84,7 +84,7 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 .. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/southwark
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/southwark/v0.5.2
+.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/southwark/v0.6.0
 	:target: https://github.com/domdfcoding/southwark/pulse
 	:alt: GitHub commits since tagged version
 
