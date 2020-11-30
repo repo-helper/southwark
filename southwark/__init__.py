@@ -401,7 +401,7 @@ def clone(
 			r.reset_index(head.tree)  # type: ignore   # TODO
 
 	except BaseException:
-		shutil.rmtree(target)
+		shutil.rmtree(target, ignore_errors=True)
 		r.close()
 		raise
 
