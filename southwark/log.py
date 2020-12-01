@@ -4,7 +4,6 @@
 """
 Python implementation of ``git log``.
 """
-# stdlib
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
