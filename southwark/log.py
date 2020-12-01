@@ -54,7 +54,7 @@ class Log:
 	"""
 	Python implementation of ``git log``.
 
-	:param repo:
+	:param repo: The git repository.
 	"""
 
 	#: The git repository.
@@ -95,7 +95,7 @@ class Log:
 	# Based on https://www.dulwich.io/code/dulwich/blob/master/dulwich/porcelain.py
 	def format_commit(self, commit: Commit) -> StringList:
 		"""
-		Write a human-readable commit log entry.
+		Return a human-readable commit log entry.
 
 		:param commit: A `Commit` object
 		"""
@@ -160,7 +160,7 @@ class Log:
 			colour: bool = True
 			) -> str:
 		"""
-		Write commit logs.
+		Return the formatted commit log.
 
 		:param max_entries: Maximum number of entries to display
 		:default max_entries: all entries
