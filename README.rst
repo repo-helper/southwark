@@ -63,28 +63,28 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 	:target: https://www.codefactor.io/repository/github/domdfcoding/southwark
 	:alt: CodeFactor Grade
 
-.. |pypi-version| image:: https://img.shields.io/pypi/v/Southwark
-	:target: https://pypi.org/project/Southwark/
+.. |pypi-version| image:: https://img.shields.io/pypi/v/southwark
+	:target: https://pypi.org/project/southwark/
 	:alt: PyPI - Package Version
 
-.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/Southwark?logo=python&logoColor=white
-	:target: https://pypi.org/project/Southwark/
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/southwark?logo=python&logoColor=white
+	:target: https://pypi.org/project/southwark/
 	:alt: PyPI - Supported Python Versions
 
-.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/Southwark
-	:target: https://pypi.org/project/Southwark/
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/southwark
+	:target: https://pypi.org/project/southwark/
 	:alt: PyPI - Supported Implementations
 
-.. |wheel| image:: https://img.shields.io/pypi/wheel/Southwark
-	:target: https://pypi.org/project/Southwark/
+.. |wheel| image:: https://img.shields.io/pypi/wheel/southwark
+	:target: https://pypi.org/project/southwark/
 	:alt: PyPI - Wheel
 
-.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/Southwark?logo=anaconda
-	:target: https://anaconda.org/domdfcoding/Southwark
+.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/southwark?logo=anaconda
+	:target: https://anaconda.org/domdfcoding/southwark
 	:alt: Conda - Package Version
 
-.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/Southwark?label=conda%7Cplatform
-	:target: https://anaconda.org/domdfcoding/Southwark
+.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/southwark?label=conda%7Cplatform
+	:target: https://anaconda.org/domdfcoding/southwark
 	:alt: Conda - Platform
 
 .. |license| image:: https://img.shields.io/github/license/domdfcoding/southwark
@@ -126,7 +126,7 @@ To install with ``pip``:
 
 .. code-block:: bash
 
-	$ python -m pip install Southwark
+	$ python -m pip install southwark
 
 To install with ``conda``:
 
@@ -141,6 +141,6 @@ To install with ``conda``:
 
 	.. code-block:: bash
 
-		$ conda install Southwark
+		$ conda install southwark
 
 .. end installation

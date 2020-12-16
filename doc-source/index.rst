@@ -61,31 +61,31 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 	:alt: CodeFactor Grade
 
 .. |pypi-version| pypi-shield::
-	:project: Southwark
+	:project: southwark
 	:version:
 	:alt: PyPI - Package Version
 
 .. |supported-versions| pypi-shield::
-	:project: Southwark
+	:project: southwark
 	:py-versions:
 	:alt: PyPI - Supported Python Versions
 
 .. |supported-implementations| pypi-shield::
-	:project: Southwark
+	:project: southwark
 	:implementations:
 	:alt: PyPI - Supported Implementations
 
 .. |wheel| pypi-shield::
-	:project: Southwark
+	:project: southwark
 	:wheel:
 	:alt: PyPI - Wheel
 
-.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/Southwark?logo=anaconda
-	:target: https://anaconda.org/domdfcoding/Southwark
+.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/southwark?logo=anaconda
+	:target: https://anaconda.org/domdfcoding/southwark
 	:alt: Conda - Package Version
 
-.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/Southwark?label=conda%7Cplatform
-	:target: https://anaconda.org/domdfcoding/Southwark
+.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/southwark?label=conda%7Cplatform
+	:target: https://anaconda.org/domdfcoding/southwark
 	:alt: Conda - Platform
 
 .. |license| github-shield::
@@ -120,7 +120,7 @@ Installation
 
 .. start installation
 
-.. installation:: Southwark
+.. installation:: southwark
 	:pypi:
 	:github:
 	:anaconda:
