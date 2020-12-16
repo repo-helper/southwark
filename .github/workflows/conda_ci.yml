@@ -41,4 +41,4 @@ jobs:
 
           python -m repo_helper build --conda --out-dir conda-bld/noarch
           $CONDA/bin/conda index ./conda-bld || exit 1
-          $CONDA/bin/conda install -c file://$(pwd)/conda-bld southwark -y || exit 1
+          $CONDA/bin/conda install -c file://$(pwd)/conda-bld Southwark -y || exit 1

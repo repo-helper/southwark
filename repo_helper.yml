@@ -3,7 +3,6 @@
 modname: 'Southwark'
 import_name: "southwark"
 repo_name: "southwark"
-pypi_name: "southwark"
 copyright_years: '2020'
 author: 'Dominic Davis-Foster'
 email: 'dominic@davis-foster.co.uk'
