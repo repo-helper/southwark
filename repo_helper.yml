@@ -11,7 +11,9 @@ version: '0.6.1'
 license: 'MIT'
 short_desc: 'Extensions to the Dulwich Git library.'
 
-enable_conda: false
+conda_channels:
+ - domdfcoding
+ - conda-forge
 
 python_versions:
   - 3.6
@@ -20,7 +22,6 @@ python_versions:
   - 3.9
   - 3.10-dev
   - pypy3
-
 
 classifiers:
  - 'Development Status :: 4 - Beta'

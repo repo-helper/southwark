@@ -24,6 +24,8 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 	  - |actions_linux| |actions_windows| |actions_macos| |coveralls| |codefactor| |pre_commit_ci|
 	* - PyPI
 	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
+	* - Anaconda
+	  - |conda-version| |conda-platform|
 	* - Activity
 	  - |commits-latest| |commits-since| |maintained|
 	* - Other
@@ -77,6 +79,14 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 	:target: https://pypi.org/project/Southwark/
 	:alt: PyPI - Wheel
 
+.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/Southwark?logo=anaconda
+	:target: https://anaconda.org/domdfcoding/Southwark
+	:alt: Conda - Package Version
+
+.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/Southwark?label=conda%7Cplatform
+	:target: https://anaconda.org/domdfcoding/Southwark
+	:alt: Conda - Platform
+
 .. |license| image:: https://img.shields.io/github/license/domdfcoding/southwark
 	:target: https://github.com/domdfcoding/southwark/blob/master/LICENSE
 	:alt: License
@@ -110,12 +120,27 @@ Installation
 
 .. start installation
 
-``Southwark`` can be installed from PyPI.
+``Southwark`` can be installed from PyPI or Anaconda.
 
 To install with ``pip``:
 
 .. code-block:: bash
 
 	$ python -m pip install Southwark
+
+To install with ``conda``:
+
+	* First add the required channels
+
+	.. code-block:: bash
+
+		$ conda config --add channels http://conda.anaconda.org/domdfcoding
+		$ conda config --add channels http://conda.anaconda.org/conda-forge
+
+	* Then install
+
+	.. code-block:: bash
+
+		$ conda install Southwark
 
 .. end installation
