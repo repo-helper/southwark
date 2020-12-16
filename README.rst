@@ -21,7 +21,7 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 	* - Docs
 	  - |docs| |docs_check|
 	* - Tests
-	  - |travis| |actions_windows| |actions_macos| |coveralls| |codefactor| |pre_commit_ci|
+	  - |actions_linux| |actions_windows| |actions_macos| |coveralls| |codefactor| |pre_commit_ci|
 	* - PyPI
 	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
 	* - Activity
@@ -30,23 +30,23 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 	  - |license| |language| |requires| |pre_commit|
 
 .. |docs| image:: https://img.shields.io/readthedocs/southwark/latest?logo=read-the-docs
-	:target: https://southwark.readthedocs.io/en/latest/?badge=latest
+	:target: https://southwark.readthedocs.io/en/latest
 	:alt: Documentation Build Status
 
 .. |docs_check| image:: https://github.com/domdfcoding/southwark/workflows/Docs%20Check/badge.svg
 	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22Docs+Check%22
 	:alt: Docs Check Status
 
-.. |travis| image:: https://github.com/domdfcoding/southwark/workflows/Linux%20Tests/badge.svg
-	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22Linux+Tests%22
+.. |actions_linux| image:: https://github.com/domdfcoding/southwark/workflows/Linux/badge.svg
+	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22Linux%22
 	:alt: Linux Test Status
 
-.. |actions_windows| image:: https://github.com/domdfcoding/southwark/workflows/Windows%20Tests/badge.svg
-	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22Windows+Tests%22
+.. |actions_windows| image:: https://github.com/domdfcoding/southwark/workflows/Windows/badge.svg
+	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22Windows%22
 	:alt: Windows Test Status
 
-.. |actions_macos| image:: https://github.com/domdfcoding/southwark/workflows/macOS%20Tests/badge.svg
-	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22macOS+Tests%22
+.. |actions_macos| image:: https://github.com/domdfcoding/southwark/workflows/macOS/badge.svg
+	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22macOS%22
 	:alt: macOS Test Status
 
 .. |requires| image:: https://requires.io/github/domdfcoding/southwark/requirements.svg?branch=master
