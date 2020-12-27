@@ -31,8 +31,8 @@ jobs:
           $CONDA/bin/conda update -q conda
           $CONDA/bin/conda install conda-build
 
-          $CONDA/bin/conda config --add channels domdfcoding
           $CONDA/bin/conda config --add channels conda-forge
+          $CONDA/bin/conda config --add channels domdfcoding
 
       - name: "Build and install package"
         run: |
@@ -41,4 +41,4 @@ jobs:
 
           python -m repo_helper build --conda --out-dir conda-bld/noarch
           $CONDA/bin/conda index ./conda-bld || exit 1
-          $CONDA/bin/conda install -c file://$(pwd)/conda-bld Southwark -y || exit 1
+          $CONDA/bin/conda install -c file://$(pwd)/conda-bld southwark -y || exit 1
