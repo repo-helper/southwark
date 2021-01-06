@@ -44,13 +44,16 @@ Modified Dulwich repository object.
 
 # stdlib
 import os
-from typing import Any, Optional, Union
+from typing import Any, Optional, Type, TypeVar, Union
 
 # 3rd party
+from domdf_python_tools.typing import PathLike
 from dulwich import repo
 from dulwich.config import StackedConfig
 
-__all__ = ["get_user_identity", "Repo"]
+__all__ = ["get_user_identity", "Repo", "_R"]
+
+_R = TypeVar("_R", bound="Repo")
 
 
 def get_user_identity(config: StackedConfig, kind: Optional[str] = None) -> bytes:
@@ -202,3 +205,25 @@ class Repo(repo.Repo):
 		"""
 
 		return get_user_identity(config)
+
+	@classmethod
+	def init(cls: Type[_R], path: PathLike, mkdir: bool = False) -> _R:
+		"""
+		Create a new repository.
+
+		:param path: Path in which to create the repository.
+		:param mkdir: Whether to create the directory if it doesn't exist.
+		"""
+
+		return super().init(str(path), mkdir)
+
+	@classmethod
+	def init_bare(cls: Type[_R], path: PathLike, mkdir: bool = ...) -> _R:
+		"""
+		Create a new bare repository.
+
+		:param path: Path in which to create the repository.
+		:param mkdir:
+		"""
+
+		return super().init_bare(str(path), mkdir)
