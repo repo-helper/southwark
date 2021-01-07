@@ -41,18 +41,14 @@ def commit_option(default: Optional[bool]) -> Callable:
 	"""
 	Decorator to add the ``--commit / --no-commit`` option to a click command.
 
+	.. versionadded:: 0.5.0
+
 	:param default: Whether to commit automatically.
 
 	* :py:obj:`None` -- Ask first
 	* :py:obj:`True` -- Commit automatically
 	* :py:obj:`False` -- Don't commit
-
-	:rtype:
-
-	.. versionadded:: 0.5.0
 	"""
-
-	help_text = "Commit or do not commit any changed files.  [default: {default}]"
 
 	if default is True:
 		default_text = "Commit automatically"
@@ -64,8 +60,9 @@ def commit_option(default: Optional[bool]) -> Callable:
 	return click.option(
 			"-y/-n",
 			"--commit/--no-commit",
-			default=default,
-			help=help_text.format(default=default_text),
+			default=lambda: default,
+			show_default=default_text,
+			help="Commit or do not commit any changed files.",
 			)
 
 
@@ -73,11 +70,9 @@ def commit_message_option(default: str) -> Callable:
 	"""
 	Decorator to add the ``-m / --message`` option to a click command.
 
-	:param default: The default commit message.
-
-	:rtype:
-
 	.. versionadded:: 0.5.0
+
+	:param default: The default commit message.
 	"""
 
 	return click.option(

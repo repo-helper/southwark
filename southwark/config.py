@@ -6,7 +6,6 @@ Utilities for repository configuration.
 
 .. versionadded:: 0.5.0
 """
-# stdlib
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -42,12 +41,14 @@ Utilities for repository configuration.
 #  |  License for the specific language governing permissions and limitations
 #  |  under the License.
 #
+
+# stdlib
 from typing import Dict
 
 # 3rd party
 from dulwich.config import ConfigFile
 
-__all__ = ["set_remote_ssh", "set_remote_html", "get_remotes"]
+__all__ = ["set_remote_ssh", "set_remote_http", "get_remotes"]
 
 
 def set_remote_ssh(config: ConfigFile, domain: str, username: str, repo: str, name: str = "origin"):
@@ -66,7 +67,7 @@ def set_remote_ssh(config: ConfigFile, domain: str, username: str, repo: str, na
 	config.set(("remote", name), "url", f"git@{domain}:{username}/{repo}.git".encode("UTF-8"))
 
 
-def set_remote_html(config: ConfigFile, domain: str, username: str, repo: str, name: str = "origin"):
+def set_remote_http(config: ConfigFile, domain: str, username: str, repo: str, name: str = "origin"):
 	"""
 	Set the remote url for the repository, using HTTP.
 
@@ -80,6 +81,9 @@ def set_remote_html(config: ConfigFile, domain: str, username: str, repo: str, n
 	"""
 
 	config.set(("remote", name), "url", f"https://{domain}/{username}/{repo}.git".encode("UTF-8"))
+
+
+set_remote_html = set_remote_http
 
 
 def get_remotes(config: ConfigFile) -> Dict[str, str]:

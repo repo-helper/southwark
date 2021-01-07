@@ -1,0 +1,9 @@
+Usage: main [OPTIONS]
+
+  Some git script.
+
+Options:
+  -y, --commit / -n, --no-commit  Commit or do not commit any changed files.
+                                  [default: (Don't commit)]
+
+  -h, --help                      Show this message and exit.

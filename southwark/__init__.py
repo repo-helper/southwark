@@ -44,20 +44,36 @@ Extensions to the Dulwich Git library.
 # stdlib
 import os
 import shutil
+from contextlib import closing
 from itertools import chain
 from operator import itemgetter
-from typing import IO, Dict, Iterator, List, NamedTuple, Optional, Sequence, Tuple, Union
+from typing import (
+		IO,
+		ContextManager,
+		Dict,
+		Iterator,
+		List,
+		NamedTuple,
+		Optional,
+		Sequence,
+		Tuple,
+		TypeVar,
+		Union,
+		overload
+		)
 
 # 3rd party
+import dulwich
 from click import echo
 from consolekit.terminal_colours import Fore
+from domdf_python_tools.compat import nullcontext
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.typing import PathLike
 from dulwich.ignore import IgnoreFilterManager
 from dulwich.index import Index, get_unstaged_changes
 from dulwich.objects import Commit, ShaFile, Tag
-from dulwich.porcelain import default_bytes_err_stream, fetch, open_repo_closing, path_to_tree_path
-from dulwich.repo import Repo
+from dulwich.porcelain import default_bytes_err_stream, fetch, path_to_tree_path
+from dulwich.repo import BaseRepo, Repo
 from typing_extensions import TypedDict
 
 __author__: str = "Dominic Davis-Foster"
@@ -76,7 +92,10 @@ __all__ = [
 		"GitStatus",
 		"get_tree_changes",
 		"clone",
+		"_DR",
 		]
+
+_DR = TypeVar("_DR", bound=dulwich.repo.Repo)
 
 
 class StagedDict(TypedDict):
@@ -406,3 +425,29 @@ def clone(
 		raise
 
 	return r
+
+
+@overload
+def open_repo_closing(path_or_repo: _DR) -> ContextManager[_DR]:
+	...  # pragma: no cover
+
+
+@overload
+def open_repo_closing(path_or_repo: Union[str, os.PathLike]) -> ContextManager[Repo]:
+	...  # pragma: no cover
+
+
+def open_repo_closing(path_or_repo):
+	"""
+	Returns a context manager which will return :class:`dulwich.repo.Repo` objects unchanged,
+	but will create a new :class:`dulwich.repo.Repo` when a filesystem path is given.
+
+	.. versionadded:: 0.7.0
+
+	:param path_or_repo: Either a :class:`dulwich.repo.Repo` object or the path of a repository.
+	"""  # noqa: D400
+
+	if isinstance(path_or_repo, BaseRepo):
+		return nullcontext(path_or_repo)
+
+	return closing(Repo(path_or_repo))

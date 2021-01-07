@@ -44,7 +44,7 @@ Modified Dulwich repository object.
 
 # stdlib
 import os
-from typing import Any, Optional, Type, TypeVar, Union
+from typing import Any, Dict, Optional, Type, TypeVar, Union
 
 # 3rd party
 from domdf_python_tools.typing import PathLike
@@ -218,7 +218,7 @@ class Repo(repo.Repo):
 		return super().init(str(path), mkdir)
 
 	@classmethod
-	def init_bare(cls: Type[_R], path: PathLike, mkdir: bool = ...) -> _R:
+	def init_bare(cls: Type[_R], path: PathLike, mkdir: bool = False) -> _R:
 		"""
 		Create a new bare repository.
 
@@ -227,3 +227,19 @@ class Repo(repo.Repo):
 		"""
 
 		return super().init_bare(str(path), mkdir)
+
+	def list_remotes(self) -> Dict[str, str]:
+		"""
+		Returns a mapping of remote names to remote URLs, for the repo's current remotes.
+
+		.. versionadded:: 0.7.0
+		"""
+
+		remotes = {}
+		config = self.get_config()
+
+		for key in list(config.keys()):
+			if key[0] == b"remote":
+				remotes[key[1].decode("UTF-8")] = config.get(key, "url").decode("UTF-8")
+
+		return remotes
