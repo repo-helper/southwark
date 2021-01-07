@@ -15,7 +15,9 @@ logo_url = "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-note
 python_logo = RequestsURL(logo_url).get().content
 
 
-def test_targit(tmp_pathplus):
+def test_targit(tmp_pathplus, monkeypatch):
+	monkeypatch.setattr(socket, "gethostname", lambda *args: "southwark.local")
+
 	t = TarGit(tmp_pathplus / "file.tar.gz", 'w')
 	assert (tmp_pathplus / "file.tar.gz.lock").is_file()
 
