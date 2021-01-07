@@ -1,5 +1,6 @@
 # stdlib
 import getpass
+import os
 import re
 import socket
 from pathlib import Path
@@ -17,6 +18,7 @@ python_logo = RequestsURL(logo_url).get().content
 
 def test_targit(tmp_pathplus, monkeypatch):
 	monkeypatch.setattr(socket, "gethostname", lambda *args: "southwark.local")
+	monkeypatch.setattr(getpass, "getuser", lambda *args: "user")
 
 	t = TarGit(tmp_pathplus / "file.tar.gz", 'w')
 	assert (tmp_pathplus / "file.tar.gz.lock").is_file()

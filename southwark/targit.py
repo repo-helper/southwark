@@ -29,6 +29,7 @@ Archive where the changes to the contents are recorded using `git <https://git-s
 # stdlib
 import atexit
 import datetime
+import getpass
 import os
 import re
 import socket
@@ -283,7 +284,8 @@ class TarGit(os.PathLike):
 		elif self.__mode not in {'w', 'a'}:
 			raise OSError("Cannot write to TarGit file opened in read-only mode.")
 
-		username = f"{os.getlogin()} <{os.getlogin()}@{socket.gethostname()}>"
+		login = getpass.getuser()
+		username = f"{login} <{login}@{socket.gethostname()}>"
 		current_time = datetime.datetime.now(datetime.timezone.utc).astimezone()
 		current_timezone = current_time.tzinfo.utcoffset(None).total_seconds()  # type: ignore
 
