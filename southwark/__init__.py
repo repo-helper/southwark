@@ -93,6 +93,7 @@ __all__ = [
 		"get_tree_changes",
 		"clone",
 		"_DR",
+		"open_repo_closing",
 		]
 
 _DR = TypeVar("_DR", bound=dulwich.repo.Repo)
@@ -117,8 +118,13 @@ class GitStatus(NamedTuple):
 	.. versionadded:: 0.6.1
 	"""
 
+	#: Dict with lists of staged paths.
 	staged: StagedDict
+
+	#: List of unstaged paths.
 	unstaged: List[PathPlus]
+
+	#: List of untracked, un-ignored & non-.git paths.
 	untracked: List[PathPlus]
 
 
@@ -320,11 +326,6 @@ def status(repo: Union[Repo, PathLike] = '.') -> GitStatus:
 	Returns staged, unstaged, and untracked changes relative to the HEAD.
 
 	:param repo: Path to repository or repository object.
-
-	:returns: GitStatus tuple,
-		staged -  dict with lists of staged paths (diff index/HEAD)
-		unstaged -  list of unstaged paths (diff index/working-tree)
-		untracked - list of untracked, un-ignored & non-.git paths
 	"""
 
 	with open_repo_closing(repo) as r:

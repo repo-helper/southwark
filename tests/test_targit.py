@@ -1,6 +1,5 @@
 # stdlib
 import getpass
-import os
 import re
 import socket
 from pathlib import Path
