@@ -63,18 +63,20 @@ from typing import (
 		)
 
 # 3rd party
-import dulwich
+import dulwich.repo
 from click import echo
 from consolekit.terminal_colours import Fore
 from domdf_python_tools.compat import nullcontext
-from domdf_python_tools.paths import PathPlus
+from domdf_python_tools.paths import PathPlus, maybe_make
 from domdf_python_tools.typing import PathLike
 from dulwich.ignore import IgnoreFilterManager
 from dulwich.index import Index, get_unstaged_changes
 from dulwich.objects import Commit, ShaFile, Tag
 from dulwich.porcelain import default_bytes_err_stream, fetch, path_to_tree_path
-from dulwich.repo import BaseRepo, Repo
 from typing_extensions import TypedDict
+
+# this package
+from southwark.repo import Repo
 
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2020 Dominic Davis-Foster"
@@ -128,7 +130,7 @@ class GitStatus(NamedTuple):
 	untracked: List[PathPlus]
 
 
-def get_tags(repo: Union[Repo, PathLike] = '.') -> Dict[str, str]:
+def get_tags(repo: Union[dulwich.repo.Repo, PathLike] = '.') -> Dict[str, str]:
 	"""
 	Returns a mapping of commit SHAs to tags.
 
@@ -282,7 +284,7 @@ def get_untracked_paths(path: PathLike, index: Index) -> Iterator[str]:
 				yield os.path.relpath(filepath, path)
 
 
-def get_tree_changes(repo: Union[PathLike, Repo]) -> StagedDict:
+def get_tree_changes(repo: Union[PathLike, dulwich.repo.Repo]) -> StagedDict:
 	"""
 	Return add/delete/modify changes to tree by comparing the index to HEAD.
 
@@ -321,7 +323,7 @@ def get_tree_changes(repo: Union[PathLike, Repo]) -> StagedDict:
 		return tracked_changes
 
 
-def status(repo: Union[Repo, PathLike] = '.') -> GitStatus:
+def status(repo: Union[dulwich.repo.Repo, PathLike] = '.') -> GitStatus:
 	"""
 	Returns staged, unstaged, and untracked changes relative to the HEAD.
 
@@ -351,61 +353,73 @@ def status(repo: Union[Repo, PathLike] = '.') -> GitStatus:
 
 def clone(
 		source: Union[str, bytes],
-		target: Union[str, bytes, None] = None,
+		target: Union[PathLike, bytes, None] = None,
 		bare: bool = False,
 		checkout: Optional[bool] = None,
 		errstream: IO = default_bytes_err_stream,
-		origin: bytes = b"origin",
+		origin: Union[str, bytes] = "origin",
 		depth: Optional[int] = None,
 		**kwargs,
-		):
+		) -> Repo:
 	"""
 	Clone a local or remote git repository.
 
-	:param source: Path or URL for source repository
-	:param target: Path to target repository (optional)
-	:param bare: Whether to create a bare repository
-	:param checkout: Whether to check-out HEAD after cloning
-	:param errstream: Optional stream to write progress to
-	:param origin: Name of remote from the repository used to clone
-	:param depth: Depth to fetch at
+	:param source: Path or URL for source repository.
+	:param target: Path to target repository.
+	:param bare: Whether to create a bare repository.
+	:param checkout: Whether to check-out HEAD after cloning.
+	:param errstream: Optional stream to write progress to.
+	:param origin: Name of remote from the repository used to clone.
+	:param depth: Depth to fetch at.
 
-	:returns: The new repository
+	:returns: The cloned repository.
 
 	.. versionadded:: 0.6.1
-	"""
 
-	# this package
-	from southwark.repo import Repo
+	.. versionchanged:: 0.7.2
+
+		* ``target`` now accepts :py:data:`domdf_python_tools.types.PathLike` objects.
+		* ``origin`` now accepts :class:`str` objects.
+	"""
 
 	if checkout is None:
 		checkout = (not bare)
-	if checkout and bare:
-		raise TypeError("checkout and bare are incompatible")
+	elif checkout and bare:
+		raise TypeError("'checkout' and 'bare' are incompatible.")
 
-	if not isinstance(source, bytes):
-		source = source.encode("UTF-8")
+	if isinstance(origin, bytes):
+		origin = origin.decode("UTF-8")
+
+	if isinstance(source, bytes):
+		source = source.decode("UTF-8")
 
 	if target is None:
-		target = source.split(b'/')[-1]
+		target = source.split('/')[-1]
 
-	if not os.path.exists(target):  # type: ignore
-		os.mkdir(target)
+	if isinstance(target, bytes):
+		target = target.decode("UTF-8")
+
+	maybe_make(target)
 
 	if bare:
-		r: Repo = Repo.init_bare(target)
+		r = Repo.init_bare(target)
 	else:
 		r = Repo.init(target)
-
-	reflog_message = b'clone: from ' + source
 
 	try:
 		target_config = r.get_config()
 
-		target_config.set((b'remote', origin), b'url', source)
-		target_config.set((b'remote', origin), b'fetch', b'+refs/heads/*:refs/remotes/' + origin + b'/*')
+		target_config.set(("remote", origin), "url", source.encode("UTF-8"))
+		target_config.set(("remote", origin), "fetch", f"+refs/heads/*:refs/remotes/{origin}/*".encode("UTF-8"))
 		target_config.write_to_path()
-		fetch_result = fetch(r, origin, errstream=errstream, message=reflog_message, depth=depth, **kwargs)
+		fetch_result = fetch(
+				r,
+				origin,
+				errstream=errstream,
+				message=f"clone: from {source}".encode("UTF-8"),
+				depth=depth,
+				**kwargs,
+				)
 
 		head: Optional[ShaFile]
 
@@ -448,7 +462,7 @@ def open_repo_closing(path_or_repo):
 	:param path_or_repo: Either a :class:`dulwich.repo.Repo` object or the path of a repository.
 	"""  # noqa: D400
 
-	if isinstance(path_or_repo, BaseRepo):
+	if isinstance(path_or_repo, dulwich.repo.BaseRepo):
 		return nullcontext(path_or_repo)
 
 	return closing(Repo(path_or_repo))
