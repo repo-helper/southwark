@@ -251,7 +251,7 @@ def format_git_status(status: GitStatus) -> Iterator[str]:
 		yield f"{status_code}{file!s}"
 
 
-status_excludes = {".git", ".tox", ".mypy_cache", ".pytest_cache", "venv", ".venv"}
+status_excludes = {".git", ".tox", ".tox4", ".mypy_cache", ".pytest_cache", "venv", ".venv"}
 
 
 def get_untracked_paths(path: PathLike, index: Index) -> Iterator[str]:
