@@ -278,6 +278,11 @@ def get_untracked_paths(path: PathLike, index: Index) -> Iterator[str]:
 
 		for filename in filenames:
 			filepath = os.path.join(dirpath, filename)
+
+			_pp_filename = (PathPlus(path) / filepath)
+			if _pp_filename.is_symlink() and not _pp_filename.resolve().is_relative_to(path):
+				continue
+
 			ip = path_to_tree_path(path, filepath)
 
 			if ip not in index:
