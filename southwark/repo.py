@@ -47,9 +47,11 @@ import os
 from typing import Any, Dict, Optional, Type, TypeVar, Union
 
 # 3rd party
+from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.typing import PathLike
-from dulwich import repo
+from dulwich import porcelain, repo
 from dulwich.config import StackedConfig
+from dulwich.porcelain import get_object_by_path
 
 __all__ = ["get_user_identity", "Repo", "_R"]
 
@@ -243,3 +245,60 @@ class Repo(repo.Repo):
 				remotes[key[1].decode("UTF-8")] = config.get(key, "url").decode("UTF-8")
 
 		return remotes
+
+	def reset_to(self, sha: str, verbose: bool = False):
+		"""
+		Reset the state of the repository to the given commit sha.
+
+		Any files added in subsequent commits will be removed,
+		any deleted will be restored,
+		and any modified will be reverted.
+
+		.. versionadded:: 0.8.0
+
+		:param sha:
+		:param verbose: If :py:obj:`True`, print details of the files being removed and reverted.
+		"""
+
+		# this package
+		from southwark import status
+
+		index = self.open_index()
+		directory = PathPlus(self.path)
+
+		porcelain.reset(self, mode="hard", treeish=sha)
+
+		current_status = status(self)
+
+		# remove all added files
+		for filename in current_status.staged["add"]:
+			if verbose:
+				print(f"Removing {filename}")
+
+			(directory / filename).unlink()
+
+		# restore all deleted files
+		for filename in current_status.staged["delete"]:
+			if verbose:
+				print(f"Restoring {filename}")
+
+			content = get_object_by_path(repo, str(filename), committish=sha).as_raw_string()
+			(directory / filename).write_bytes(content)
+
+		# revert all modified files
+		for filename in current_status.staged["modify"]:
+			if verbose:
+				print(f"Reverting {filename}")
+
+			content = get_object_by_path(self, str(filename), committish=sha).as_raw_string()
+			(directory / filename).write_bytes(content)
+
+		index.write()
+
+		for filename in current_status.staged["delete"]:
+			self.stage(os.path.normpath(filename))
+
+		for filename in current_status.staged["modify"]:
+			self.stage(os.path.normpath(filename))
+
+		self.reset_index()
