@@ -1,4 +1,8 @@
+# stdlib
+import os
+
 # 3rd party
+from dulwich.config import StackedConfig
 from pytest_regressions.data_regression import DataRegressionFixture
 
 # this package
@@ -20,7 +24,21 @@ def test_list_remotes(tmp_pathplus, data_regression: DataRegressionFixture):
 
 
 def test_reset_to(tmp_pathplus):
-	repo = clone("https://github.com/domdfcoding/domdf_python_tools", target=tmp_pathplus)
+
+	_environ = dict(os.environ)  # or os.environ.copy()
+	_default_backends = StackedConfig.default_backends
+
+	try:
+		name = "wordle_user"
+		StackedConfig.default_backends = lambda *args: []  # type: ignore
+		os.environ["USER"] = os.environ.get("USER", name)
+
+		repo = clone("https://github.com/domdfcoding/domdf_python_tools", target=tmp_pathplus)
+
+	finally:
+		os.environ.clear()
+		os.environ.update(_environ)
+		StackedConfig.default_backends = _default_backends  # type: ignore
 
 	repo.reset_to("b2a09de2c93fd8dae057f7f8d178ed3abeca6efe", verbose=True)
 
