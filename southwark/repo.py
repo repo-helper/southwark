@@ -296,9 +296,9 @@ class Repo(repo.Repo):
 		index.write()
 
 		for filename in current_status.staged["delete"]:
-			self.stage(os.path.normpath(filename))
+			self.stage(os.path.normpath(filename.as_posix()))
 
 		for filename in current_status.staged["modify"]:
-			self.stage(os.path.normpath(filename))
+			self.stage(os.path.normpath(filename.as_posix()))
 
 		self.reset_index()

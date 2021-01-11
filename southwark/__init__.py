@@ -44,7 +44,7 @@ Extensions to the Dulwich Git library.
 # stdlib
 import os
 import shutil
-from contextlib import closing
+from contextlib import closing, contextmanager
 from itertools import chain
 from operator import itemgetter
 from typing import (
@@ -69,6 +69,7 @@ from consolekit.terminal_colours import Fore
 from domdf_python_tools.compat import nullcontext
 from domdf_python_tools.paths import PathPlus, maybe_make
 from domdf_python_tools.typing import PathLike
+from dulwich.config import StackedConfig
 from dulwich.ignore import IgnoreFilterManager
 from dulwich.index import Index, get_unstaged_changes
 from dulwich.objects import Commit, ShaFile, Tag
@@ -96,6 +97,7 @@ __all__ = [
 		"clone",
 		"_DR",
 		"open_repo_closing",
+		"windows_clone_helper",
 		]
 
 _DR = TypeVar("_DR", bound=dulwich.repo.Repo)
@@ -471,3 +473,37 @@ def open_repo_closing(path_or_repo):
 		return nullcontext(path_or_repo)
 
 	return closing(Repo(path_or_repo))
+
+
+@contextmanager
+def windows_clone_helper():
+	"""
+	Contextmanager to aid cloning on Windows during tests.
+
+	.. versionadded:: 0.8.0
+
+	.. attention:: This function is intended only for use in tests.
+
+	Usage:
+
+	.. code-block:: python
+
+		with windows_clone_helper():
+			repo = clone(...)
+
+	"""
+
+	_environ = dict(os.environ)  # or os.environ.copy()
+	_default_backends = StackedConfig.default_backends
+
+	try:
+		name = "wordle_user"
+		StackedConfig.default_backends = lambda *args: []  # type: ignore
+		os.environ["USER"] = os.environ.get("USER", name)
+
+		yield
+
+	finally:
+		os.environ.clear()
+		os.environ.update(_environ)
+		StackedConfig.default_backends = _default_backends  # type: ignore
