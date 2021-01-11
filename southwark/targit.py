@@ -85,7 +85,7 @@ class SaveState(NamedTuple):
 	# TODO: changed files
 
 	#: The SHA id of the underlying commit.
-	id: str  # noqa: A003
+	id: str  # noqa: A003  # pylint: disable=redefined-builtin
 
 	#: The name of the user who made the changes.
 	user: str
