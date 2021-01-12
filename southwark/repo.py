@@ -282,7 +282,7 @@ class Repo(repo.Repo):
 			if verbose:
 				print(f"Restoring {filename}")
 
-			content = get_object_by_path(repo, str(filename), committish=sha).as_raw_string()
+			content = get_object_by_path(repo, filename.as_posix(), committish=sha).as_raw_string()
 			(directory / filename).write_bytes(content)
 
 		# revert all modified files
@@ -290,15 +290,15 @@ class Repo(repo.Repo):
 			if verbose:
 				print(f"Reverting {filename}")
 
-			content = get_object_by_path(self, str(filename), committish=sha).as_raw_string()
+			content = get_object_by_path(self, filename.as_posix(), committish=sha).as_raw_string()
 			(directory / filename).write_bytes(content)
 
 		index.write()
 
 		for filename in current_status.staged["delete"]:
-			self.stage(os.path.normpath(filename))
+			self.stage(os.path.normpath(filename.as_posix()))
 
 		for filename in current_status.staged["modify"]:
-			self.stage(os.path.normpath(filename))
+			self.stage(os.path.normpath(filename.as_posix()))
 
 		self.reset_index()

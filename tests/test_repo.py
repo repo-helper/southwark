@@ -2,7 +2,7 @@
 from pytest_regressions.data_regression import DataRegressionFixture
 
 # this package
-from southwark import clone, status
+from southwark import clone, status, windows_clone_helper
 from southwark.config import get_remotes
 from southwark.repo import Repo
 
@@ -20,7 +20,9 @@ def test_list_remotes(tmp_pathplus, data_regression: DataRegressionFixture):
 
 
 def test_reset_to(tmp_pathplus):
-	repo = clone("https://github.com/domdfcoding/domdf_python_tools", target=tmp_pathplus)
+
+	with windows_clone_helper():
+		repo = clone("https://github.com/domdfcoding/domdf_python_tools", target=tmp_pathplus)
 
 	repo.reset_to("b2a09de2c93fd8dae057f7f8d178ed3abeca6efe", verbose=True)
 
