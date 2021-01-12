@@ -107,7 +107,7 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 	:alt: GitHub top language
 
 .. |commits-since| github-shield::
-	:commits-since: v0.7.1
+	:commits-since: v0.8.0
 	:alt: GitHub commits since tagged version
 
 .. |commits-latest| github-shield::
