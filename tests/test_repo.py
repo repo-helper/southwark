@@ -24,7 +24,14 @@ def test_reset_to(tmp_pathplus):
 	with windows_clone_helper():
 		repo = clone("https://github.com/domdfcoding/domdf_python_tools", target=tmp_pathplus)
 
-	repo.reset_to("b2a09de2c93fd8dae057f7f8d178ed3abeca6efe", verbose=True)
+	assert repo.head() != b"b2a09de2c93fd8dae057f7f8d178ed3abeca6efe"
+
+	for entry in repo.get_walker():
+		assert entry.commit.id != b"b2a09de2c93fd8dae057f7f8d178ed3abeca6efe"
+		break
+
+	repo.reset_to("b2a09de2c93fd8dae057f7f8d178ed3abeca6efe")
+	assert repo.head() == b"b2a09de2c93fd8dae057f7f8d178ed3abeca6efe"
 
 	current_status = status(repo)
 
@@ -33,3 +40,9 @@ def test_reset_to(tmp_pathplus):
 	assert not current_status.staged["modify"]
 	assert not current_status.unstaged
 	assert not current_status.untracked
+
+	repo = Repo(tmp_pathplus)
+
+	for entry in repo.get_walker():
+		assert entry.commit.id == b"b2a09de2c93fd8dae057f7f8d178ed3abeca6efe"
+		break

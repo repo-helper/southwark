@@ -44,14 +44,17 @@ Modified Dulwich repository object.
 
 # stdlib
 import os
-from typing import Any, Dict, Optional, Type, TypeVar, Union
+from itertools import chain
+from typing import Any, Dict, Iterator, Optional, Type, TypeVar, Union, cast
 
 # 3rd party
+import click
+import dulwich.index
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.typing import PathLike
-from dulwich import porcelain, repo
+from dulwich import repo
 from dulwich.config import StackedConfig
-from dulwich.porcelain import get_object_by_path
+from dulwich.objects import Commit, Tree, TreeEntry
 
 __all__ = ["get_user_identity", "Repo", "_R"]
 
@@ -246,7 +249,7 @@ class Repo(repo.Repo):
 
 		return remotes
 
-	def reset_to(self, sha: str, verbose: bool = False):
+	def reset_to(self, sha: Union[str, bytes]):
 		"""
 		Reset the state of the repository to the given commit sha.
 
@@ -257,48 +260,51 @@ class Repo(repo.Repo):
 		.. versionadded:: 0.8.0
 
 		:param sha:
-		:param verbose: If :py:obj:`True`, print details of the files being removed and reverted.
 		"""
 
 		# this package
 		from southwark import status
 
+		if isinstance(sha, str):
+			sha = sha.encode("UTF-8")
+
 		index = self.open_index()
 		directory = PathPlus(self.path)
 
-		porcelain.reset(self, mode="hard", treeish=sha)
+		tree_for_sha: Tree = cast(Commit, self[sha]).tree
+		tree_for_head: Tree = cast(Commit, self[b'HEAD']).tree
+
+		dulwich.index.build_index_from_tree(
+				root_path=directory,
+				index_path=self.index_path(),
+				object_store=self.object_store,
+				tree_id=tree_for_sha,
+				)
+
+		try:
+			# Based on https://github.com/dulwich/dulwich/issues/588#issuecomment-348412641
+			oldtree: Tree = cast(Tree, self[tree_for_head])
+			newtree: Tree = cast(Tree, self[tree_for_sha])
+
+			contents_iterator: Iterator[TreeEntry] = self.object_store.iter_tree_contents(newtree.id)
+			desired_filenames = [f.path for f in contents_iterator]
+
+			for f in self.object_store.iter_tree_contents(oldtree.id):
+				if f.path not in desired_filenames:
+					# delete files that were in old branch, but not new
+					(directory / f.path.decode("UTF-8")).unlink()
+
+		except KeyError:
+			click.echo("Unable to delete filed added in later commits", err=True)
+
+		self[b'HEAD'] = sha
+		index.write()
 
 		current_status = status(self)
 
-		# remove all added files
-		for filename in current_status.staged["add"]:
-			if verbose:
-				print(f"Removing {filename}")
-
-			(directory / filename).unlink()
-
-		# restore all deleted files
-		for filename in current_status.staged["delete"]:
-			if verbose:
-				print(f"Restoring {filename}")
-
-			content = get_object_by_path(repo, filename.as_posix(), committish=sha).as_raw_string()
-			(directory / filename).write_bytes(content)
-
-		# revert all modified files
-		for filename in current_status.staged["modify"]:
-			if verbose:
-				print(f"Reverting {filename}")
-
-			content = get_object_by_path(self, filename.as_posix(), committish=sha).as_raw_string()
-			(directory / filename).write_bytes(content)
-
-		index.write()
-
-		for filename in current_status.staged["delete"]:
+		for filename in chain.from_iterable([
+				current_status.staged["add"],
+				current_status.staged["delete"],
+				current_status.staged["modify"],
+				]):
 			self.stage(os.path.normpath(filename.as_posix()))
-
-		for filename in current_status.staged["modify"]:
-			self.stage(os.path.normpath(filename.as_posix()))
-
-		self.reset_index()
