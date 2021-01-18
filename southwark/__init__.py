@@ -67,7 +67,7 @@ import dulwich.repo
 from click import echo
 from consolekit.terminal_colours import Fore
 from domdf_python_tools.compat import nullcontext
-from domdf_python_tools.paths import PathPlus, maybe_make
+from domdf_python_tools.paths import PathPlus, maybe_make, unwanted_dirs
 from domdf_python_tools.typing import PathLike
 from dulwich.config import StackedConfig
 from dulwich.ignore import IgnoreFilterManager
@@ -253,9 +253,6 @@ def format_git_status(status: GitStatus) -> Iterator[str]:
 		yield f"{status_code}{file!s}"
 
 
-status_excludes = {".git", ".tox", ".tox4", ".mypy_cache", ".pytest_cache", "venv", ".venv"}
-
-
 def get_untracked_paths(path: PathLike, index: Index) -> Iterator[str]:
 	"""
 	Returns a list of untracked files.
@@ -268,13 +265,16 @@ def get_untracked_paths(path: PathLike, index: Index) -> Iterator[str]:
 
 	for dirpath, dirnames, filenames in os.walk(path):
 		# Skip .git etc. and below.
-		for exclude in status_excludes:
+		for exclude in unwanted_dirs:
 			if exclude in dirnames:
 				dirnames.remove(exclude)
+
 				if dirpath != path:
 					continue
+
 			if exclude in filenames:
 				filenames.remove(exclude)
+
 				if dirpath != path:
 					continue
 
