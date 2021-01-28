@@ -450,13 +450,11 @@ def clone(
 
 
 @overload
-def open_repo_closing(path_or_repo: _DR) -> ContextManager[_DR]:
-	...  # pragma: no cover
+def open_repo_closing(path_or_repo: _DR) -> ContextManager[_DR]: ...  # pragma: no cover
 
 
 @overload
-def open_repo_closing(path_or_repo: Union[str, os.PathLike]) -> ContextManager[Repo]:
-	...  # pragma: no cover
+def open_repo_closing(path_or_repo: Union[str, os.PathLike]) -> ContextManager[Repo]: ...  # pragma: no cover
 
 
 def open_repo_closing(path_or_repo):
