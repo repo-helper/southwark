@@ -34,3 +34,5 @@ keywords:
  - git
  - dulwich
  - vcs
+
+min_coverage: 85
