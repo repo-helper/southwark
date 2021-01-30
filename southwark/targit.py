@@ -255,6 +255,7 @@ class TarGit(os.PathLike):
 				fp.flush()
 
 			return True
+
 		return False
 
 	def status(self) -> StagedDict:

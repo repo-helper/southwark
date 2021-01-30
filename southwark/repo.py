@@ -295,16 +295,16 @@ class Repo(repo.Repo):
 					(directory / f.path.decode("UTF-8")).unlink()
 
 		except KeyError:
-			click.echo("Unable to delete filed added in later commits", err=True)
+			click.echo("Unable to delete files added in later commits", err=True)
 
 		self[b'HEAD'] = sha
 		index.write()
 
 		current_status = status(self)
 
-		for filename in chain.from_iterable([
+		for filename in chain(
 				current_status.staged["add"],
 				current_status.staged["delete"],
 				current_status.staged["modify"],
-				]):
+				):
 			self.stage(os.path.normpath(filename.as_posix()))
