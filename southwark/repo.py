@@ -134,19 +134,19 @@ class Repo(repo.Repo):
 	"""
 
 	def do_commit(  # type: ignore
-			self,
-			message: Optional[Union[str, bytes]] = None,
-			committer: Optional[Union[str, bytes]] = None,
-			author: Optional[Union[str, bytes]] = None,
-			commit_timestamp: Optional[float] = None,
-			commit_timezone: Optional[float] = None,
-			author_timestamp: Optional[float] = None,
-			author_timezone: Optional[float] = None,
-			tree: Optional[Any] = None,
-			encoding: Optional[Union[str, bytes]] = None,
-			ref: bytes = b'HEAD',
-			merge_heads: Optional[Any] = None
-			) -> bytes:
+		self,
+		message: Optional[Union[str, bytes]] = None,
+		committer: Optional[Union[str, bytes]] = None,
+		author: Optional[Union[str, bytes]] = None,
+		commit_timestamp: Optional[float] = None,
+		commit_timezone: Optional[float] = None,
+		author_timestamp: Optional[float] = None,
+		author_timezone: Optional[float] = None,
+		tree: Optional[Any] = None,
+		encoding: Optional[Union[str, bytes]] = None,
+		ref: bytes = b'HEAD',
+		merge_heads: Optional[Any] = None
+		) -> bytes:
 		"""
 		Create a new commit.
 
