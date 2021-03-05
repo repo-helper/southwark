@@ -133,7 +133,7 @@ class Repo(repo.Repo):
 	:param root:
 	"""
 
-	def do_commit(
+	def do_commit(  # type: ignore
 			self,
 			message: Optional[Union[str, bytes]] = None,
 			committer: Optional[Union[str, bytes]] = None,
