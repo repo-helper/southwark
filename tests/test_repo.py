@@ -1,4 +1,6 @@
 # 3rd party
+import pytest
+from domdf_python_tools.compat import PYPY36
 from pytest_regressions.data_regression import DataRegressionFixture
 
 # this package
@@ -19,6 +21,11 @@ def test_list_remotes(tmp_pathplus, data_regression: DataRegressionFixture):
 	data_regression.check(get_remotes(repo.get_config()))
 
 
+@pytest.mark.skipif(
+		PYPY36 and platform.system() == "Windows",
+		reason=
+		"Dulwich causes 'TypeError: os.scandir() doesn't support bytes path on Windows, use Unicode instead'",
+		)
 def test_reset_to(tmp_pathplus):
 
 	with windows_clone_helper():
