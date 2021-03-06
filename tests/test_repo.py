@@ -1,3 +1,6 @@
+# stdlib
+import platform
+
 # 3rd party
 import pytest
 from domdf_python_tools.compat import PYPY36
