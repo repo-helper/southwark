@@ -68,13 +68,13 @@ repos:
     - id: forbid-crlf
 
  - repo: https://github.com/repo-helper/formate
-   rev: v0.4.2
+   rev: v0.4.3
    hooks:
     - id: formate
       exclude: ^(doc-source/conf|__pkginfo__|make_conda_recipe|setup)\.(_)?py$
 
  - repo: https://github.com/domdfcoding/dep_checker
-   rev: v0.4.1
+   rev: v0.5.0
    hooks:
     - id: dep_checker
       args:
