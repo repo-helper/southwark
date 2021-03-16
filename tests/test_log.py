@@ -16,7 +16,7 @@ pypy_windows_dulwich = pytest.mark.skipif(
 		)
 
 
-@pypy_windows_dulwich
+# @pypy_windows_dulwich
 def test_log(tmp_repo, file_regression: FileRegressionFixture):
 	file_regression.check(Log(tmp_repo).log())
 
