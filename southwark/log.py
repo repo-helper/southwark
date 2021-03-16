@@ -33,14 +33,15 @@ from textwrap import indent
 from typing import Dict, Mapping, Optional, Union
 
 # 3rd party
+import dulwich.repo
 from consolekit.terminal_colours import Fore, strip_ansi
 from domdf_python_tools.stringlist import DelimitedList, StringList
 from domdf_python_tools.typing import PathLike
 from dulwich.objects import Commit, format_timezone
-from dulwich.repo import Repo
 
 # this package
 from southwark import get_tags
+from southwark.repo import Repo
 
 __all__ = ["Log"]
 
@@ -57,11 +58,13 @@ class Log:
 	"""
 
 	#: The git repository.
-	repo: Repo
+	repo: dulwich.repo.Repo
 
-	def __init__(self, repo: Union[Repo, PathLike] = '.'):
+	def __init__(self, repo: Union[dulwich.repo.Repo, PathLike] = '.'):
 		if isinstance(repo, Repo):
 			self.repo = repo
+		elif isinstance(repo, dulwich.repo.Repo):
+			self.repo = Repo(repo.path)
 		else:
 			self.repo = Repo(repo)
 
