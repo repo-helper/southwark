@@ -11,8 +11,10 @@ version: '0.8.0'
 license: 'MIT'
 short_desc: 'Extensions to the Dulwich Git library.'
 
+use_whey: true
+min_coverage: 85
+
 conda_channels:
- - domdfcoding
  - conda-forge
 
 python_versions:
@@ -35,5 +37,3 @@ keywords:
  - git
  - dulwich
  - vcs
-
-min_coverage: 85
