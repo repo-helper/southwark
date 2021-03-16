@@ -27,7 +27,7 @@ Modified Dulwich repository object.
 #  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 #  OR OTHER DEALINGS IN THE SOFTWARE.
 #
-#  get_user_identity and Repo based on https://github.com/dulwich/dulwich
+#  get_user_identity, Repo and DiskRefsContainer based on https://github.com/dulwich/dulwich
 #  Copyright (C) 2013 Jelmer Vernooij <jelmer@jelmer.uk>
 #  |  Licensed under the Apache License, Version 2.0 (the "License"); you may
 #  |  not use this file except in compliance with the License. You may obtain
@@ -50,6 +50,8 @@ from typing import Any, Dict, Iterator, Optional, Type, TypeVar, Union, cast
 # 3rd party
 import click
 import dulwich.index
+import dulwich.refs
+from domdf_python_tools.compat import PYPY, PYPY36
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.typing import PathLike
 from dulwich import repo
@@ -132,6 +134,13 @@ class Repo(repo.Repo):
 
 	:param root:
 	"""
+
+	if PYPY36:  # pragma: no cover (not (PyPy and py36))
+
+		def __init__(self, *args, **kwargs):
+			super().__init__(*args, **kwargs)
+
+			self.refs = DiskRefsContainer._from_container(self.refs)
 
 	def do_commit(  # type: ignore
 		self,
@@ -308,3 +317,58 @@ class Repo(repo.Repo):
 				current_status.staged["modify"],
 				):
 			self.stage(os.path.normpath(filename.as_posix()))
+
+
+if PYPY36:  # pragma: no cover (not (PyPy and py36))
+
+	class DiskRefsContainer(dulwich.refs.DiskRefsContainer):
+
+		@classmethod
+		def _from_container(cls, container: dulwich.refs.DiskRefsContainer):
+			return cls(container.path, container.worktree_path, container._logger)
+
+		def subkeys(self, base):
+			subkeys = set()
+
+			path = self.refpath(base).decode("UTF-8")
+			base = base.decode("UTF-8")
+
+			for root, unused_dirs, files in os.walk(path):
+				dir = root[len(path):]
+
+				if os.path.sep != '/':
+					dir = dir.replace(os.path.sep, '/')
+
+				dir = dir.strip('/')
+
+				for filename in files:
+					refname = '/'.join(([dir] if dir else []) + [filename])
+					# check_ref_format requires at least one /, so we prepend the
+					# base before calling it.
+					if dulwich.refs.check_ref_format((base + '/' + refname).encode("UTF-8")):
+						subkeys.add(refname)
+
+			for key in self.get_packed_refs():
+				if key.startswith(base):
+					subkeys.add(key[len(base):].strip('/'))
+
+			return subkeys
+
+		def as_dict(self, base=None):
+			ret = {}
+			keys = self.keys(base)
+
+			if base is None:
+				base = b""
+			else:
+				base = base.rstrip(b"/")
+			for key in keys:
+				if isinstance(key, str):
+					key = key.encode("UTF-8")
+
+				try:
+					ret[key] = self[(base + b"/" + key).strip(b"/")]
+				except KeyError:
+					continue  # Unable to resolve
+
+			return ret
