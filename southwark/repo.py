@@ -140,7 +140,7 @@ class Repo(repo.Repo):
 		def __init__(self, *args, **kwargs):
 			super().__init__(*args, **kwargs)
 
-			self.refs = DiskRefsContainer._from_container(self.refs)
+			self.refs = DiskRefsContainer._from_container(self.refs)  # type: ignore
 
 	def do_commit(  # type: ignore
 		self,
@@ -325,7 +325,7 @@ if PYPY36:  # pragma: no cover (not (PyPy and py36))
 
 		@classmethod
 		def _from_container(cls, container: dulwich.refs.DiskRefsContainer):
-			return cls(container.path, container.worktree_path, container._logger)
+			return cls(container.path, container.worktree_path, container._logger)  # type: ignore
 
 		def subkeys(self, base):
 			subkeys = set()
@@ -334,12 +334,12 @@ if PYPY36:  # pragma: no cover (not (PyPy and py36))
 			base = base.decode("UTF-8")
 
 			for root, unused_dirs, files in os.walk(path):
-				dir = root[len(path):]
+				dir = root[len(path):]  # noqa: A001  # pylint: disable=redefined-builtin
 
 				if os.path.sep != '/':
-					dir = dir.replace(os.path.sep, '/')
+					dir = dir.replace(os.path.sep, '/')  # noqa: A001  # pylint: disable=redefined-builtin
 
-				dir = dir.strip('/')
+				dir = dir.strip('/')  # noqa: A001  # pylint: disable=redefined-builtin
 
 				for filename in files:
 					refname = '/'.join(([dir] if dir else []) + [filename])

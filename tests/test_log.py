@@ -9,10 +9,10 @@ from pytest_regressions.file_regression import FileRegressionFixture
 # this package
 from southwark.log import Log
 
+_err_msg = "Dulwich causes 'TypeError: os.scandir() doesn't support bytes path on Windows, use Unicode instead'"
 pypy_windows_dulwich = pytest.mark.skipif(
 		PYPY36 and platform.system() == "Windows",
-		reason=
-		"Dulwich causes 'TypeError: os.scandir() doesn't support bytes path on Windows, use Unicode instead'",
+		reason=_err_msg,
 		)
 
 
