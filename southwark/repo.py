@@ -327,6 +327,30 @@ if PYPY36:  # pragma: no cover (not (PyPy and py36))
 		def _from_container(cls, container: dulwich.refs.DiskRefsContainer):
 			return cls(container.path, container.worktree_path, container._logger)  # type: ignore
 
+		def allkeys(self):
+			allkeys = set()
+
+			if os.path.exists(self.refpath(b"HEAD")):
+				allkeys.add(b"HEAD")
+
+			path = self.refpath(b"")
+			refspath = self.refpath(b"refs")
+
+			for root, unused_dirs, files in os.walk(refspath.decode("UTF-8")):
+				dir = root[len(path):]  # noqa: A001  # pylint: disable=redefined-builtin
+
+				if os.path.sep != '/':
+					dir = dir.replace(os.path.sep, '/')  # noqa: A001  # pylint: disable=redefined-builtin
+
+				for filename in files:
+					refname = '/'.join([dir, filename])
+
+					if dulwich.refs.check_ref_format(refname.encode("UTF-8")):
+						allkeys.add(refname.encode("UTF-8"))
+
+			allkeys.update(self.get_packed_refs())
+			return allkeys
+
 		def subkeys(self, base):
 			subkeys = set()
 
