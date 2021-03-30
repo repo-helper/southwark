@@ -4,7 +4,7 @@ Southwark
 
 .. start short_desc
 
-**Extensions to the Dulwich Git library.**
+.. documentation-summary::
 
 .. end short_desc
 

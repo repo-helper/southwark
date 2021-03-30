@@ -9,9 +9,11 @@ description = "Extensions to the Dulwich Git library."
 readme = "README.rst"
 keywords = [ "git", "dulwich", "vcs",]
 dynamic = [ "requires-python", "classifiers", "dependencies",]
+
 [[project.authors]]
 email = "dominic@davis-foster.co.uk"
 name = "Dominic Davis-Foster"
+
 
 [project.license]
 file = "LICENSE"
