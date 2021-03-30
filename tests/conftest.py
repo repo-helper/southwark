@@ -7,7 +7,7 @@ import shutil
 import pytest
 from domdf_python_tools.paths import PathPlus
 
-pytest_plugins = ("domdf_python_tools.testing", )
+pytest_plugins = ("coincidence", )
 
 
 @pytest.fixture()

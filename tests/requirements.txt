@@ -2,7 +2,7 @@
 git+https://github.com/domdfcoding/pytest-plugins#egg=pytest-git&subdirectory=pytest-git
 git+https://github.com/domdfcoding/pytest-plugins#egg=pytest-shutil&subdirectory=pytest-shutil
 apeye>=0.5.1
-coincidence>=0.1.0
+coincidence>=0.2.0
 coverage>=5.1
 coverage-pyver-pragma>=0.2.1
 domdf-python-tools[testing]>=2.0.1

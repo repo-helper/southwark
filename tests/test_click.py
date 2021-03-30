@@ -1,8 +1,7 @@
 # 3rd party
 import pytest
-from click.testing import CliRunner
 from consolekit import click_command
-from domdf_python_tools.testing import check_file_regression
+from consolekit.testing import CliRunner
 from pytest_regressions.file_regression import FileRegressionFixture
 
 # this package
@@ -27,7 +26,7 @@ def test_help(file_regression: FileRegressionFixture):
 
 	result = runner.invoke(main, catch_exceptions=False, args="--help")
 	assert result.exit_code == 0
-	check_file_regression(result.stdout, file_regression)
+	result.check_stdout(file_regression)
 
 
 def test_defaults(file_regression: FileRegressionFixture):
@@ -36,7 +35,7 @@ def test_defaults(file_regression: FileRegressionFixture):
 
 	result = runner.invoke(main, catch_exceptions=False)
 	assert result.exit_code == 0
-	check_file_regression(result.stdout, file_regression)
+	result.check_stdout(file_regression)
 
 
 @pytest.mark.parametrize("default", [True, False, None])
@@ -55,7 +54,7 @@ def test_commit_option(file_regression: FileRegressionFixture, default):
 
 	result = runner.invoke(main, catch_exceptions=False, args="--help")
 	assert result.exit_code == 0
-	check_file_regression(result.stdout, file_regression)
+	result.check_stdout(file_regression)
 
 	result = runner.invoke(main, catch_exceptions=False)
 	assert result.exit_code == 0

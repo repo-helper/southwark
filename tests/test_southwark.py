@@ -1,6 +1,6 @@
 # 3rd party
+from coincidence.selectors import not_windows
 from domdf_python_tools.paths import PathPlus
-from domdf_python_tools.testing import not_windows
 from pytest_git import GitRepo  # type: ignore
 from pytest_regressions.data_regression import DataRegressionFixture
 
