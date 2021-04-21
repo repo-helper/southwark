@@ -35,12 +35,11 @@ import re
 import socket
 import tarfile
 import time
-from tempfile import TemporaryDirectory
-from typing import Iterator, List, NamedTuple, Optional
+from typing import Iterator, NamedTuple, Optional
 
 # 3rd party
 from domdf_python_tools.doctools import prettify_docstrings
-from domdf_python_tools.paths import PathPlus
+from domdf_python_tools.paths import PathPlus, TemporaryPathPlus
 from domdf_python_tools.typing import PathLike
 from dulwich.objects import format_timezone
 from dulwich.repo import Repo
@@ -168,8 +167,8 @@ class TarGit(os.PathLike):
 		self.filename = PathPlus(filename)
 		self.__closed: bool = True
 
-		self.__tmpdir: TemporaryDirectory = TemporaryDirectory()
-		self.__tmpdir_p = PathPlus(self.__tmpdir.name)
+		self.__tmpdir: TemporaryPathPlus = TemporaryPathPlus()
+		self.__tmpdir_p = self.__tmpdir.name
 		atexit.register(self.__exit_handler)
 
 		if mode in {'w', 'a'}:
