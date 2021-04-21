@@ -42,6 +42,7 @@ known_third_party = [
     "dulwich",
     "filelock",
     "github",
+    "importlib_metadata",
     "pytest",
     "pytest_cov",
     "pytest_git",

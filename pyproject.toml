@@ -7,12 +7,12 @@ name = "Southwark"
 version = "0.8.1"
 description = "Extensions to the Dulwich Git library."
 readme = "README.rst"
-keywords = [ "git", "dulwich", "vcs",]
+keywords = [ "dulwich", "git", "vcs",]
 dynamic = [ "requires-python", "classifiers", "dependencies",]
 
 [[project.authors]]
-email = "dominic@davis-foster.co.uk"
 name = "Dominic Davis-Foster"
+email = "dominic@davis-foster.co.uk"
 
 
 [project.license]
@@ -38,3 +38,7 @@ python-implementations = [ "CPython", "PyPy",]
 platforms = [ "Windows", "macOS", "Linux",]
 license-key = "MIT"
 package = "southwark"
+
+[tool.mkrecipe]
+conda-channels = [ "conda-forge", "domdfcoding",]
+extras = "all"
