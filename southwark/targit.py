@@ -161,7 +161,7 @@ class TarGit(os.PathLike):
 
 	__mode: Modes
 	__repo: Repo
-	__lock: Optional[FileLock]
+	__lock: Optional[FileLock]  # type: ignore[valid-type]
 
 	def __init__(self, filename: PathLike, mode: Modes = 'r'):
 		self.filename = PathPlus(filename)
@@ -175,7 +175,7 @@ class TarGit(os.PathLike):
 			lock_file = str(self.filename.with_suffix(self.filename.suffix + ".lock"))
 			self.__lock = FileLock(lock_file, timeout=1)
 			try:
-				self.__lock.acquire()
+				self.__lock.acquire()  # type: ignore[attr-defined]
 			except Timeout:
 				raise OSError(f"Unable to acquire a lock for the file '{self.filename!s}'")
 		else:
