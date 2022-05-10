@@ -5,7 +5,7 @@
 Archive where the changes to the contents are recorded using `git <https://git-scm.com/>`_.
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020,2022 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -50,12 +50,12 @@ from typing_extensions import Literal
 from southwark import StagedDict, status
 
 __all__ = [
+		"BadArchiveError",
 		"Modes",
 		"Status",
-		"SaveState",
-		"check_archive_paths",
-		"BadArchiveError",
 		"TarGit",
+		"check_archive_paths",
+		"SaveState",
 		]
 
 Modes = Literal["r", "w", "a"]

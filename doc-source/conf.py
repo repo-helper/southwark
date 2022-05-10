@@ -32,6 +32,7 @@ todo_include_todos = bool(os.environ.get("SHOW_TODOS", 0))
 intersphinx_mapping = {
 		"python": ("https://docs.python.org/3/", None),
 		"sphinx": ("https://www.sphinx-doc.org/en/stable/", None),
+		"dulwich": ("https://www.dulwich.io/docs/", None),
 		}
 
 html_theme_options = {"logo_only": False}
@@ -70,3 +71,7 @@ def setup(app):
 	from sphinx_toolbox.latex import better_header_layout
 
 	app.connect("config-inited", lambda app, config: better_header_layout(config))
+
+
+nitpicky = True
+needspace_amount = r"4\baselineskip"

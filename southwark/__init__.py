@@ -385,7 +385,7 @@ def clone(
 
 	.. versionchanged:: 0.7.2
 
-		* ``target`` now accepts :py:data:`domdf_python_tools.types.PathLike` objects.
+		* ``target`` now accepts :py:data:`domdf_python_tools.typing.PathLike` objects.
 		* ``origin`` now accepts :class:`str` objects.
 	"""
 

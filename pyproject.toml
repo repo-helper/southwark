@@ -72,6 +72,9 @@ extensions = [
     "sphinx_licenseinfo",
     "seed_intersphinx_mapping",
     "html_section",
+    "local_extension",
+    "sphinx_toolbox.more_autosummary.column_widths",
+    "sphinx_toolbox.latex.succinct_seealso",
 ]
 sphinxemoji_style = "twemoji"
 gitstamp_fmt = "%d %b %Y"

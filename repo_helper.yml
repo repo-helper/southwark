@@ -38,3 +38,18 @@ keywords:
  - git
  - dulwich
  - vcs
+
+sphinx_conf_epilogue:
+ - nitpicky = True
+ - needspace_amount = r"4\baselineskip"
+
+intersphinx_mapping:
+ - "'dulwich': ('https://www.dulwich.io/docs/', None)"
+
+exclude_files:
+ - contributing
+
+extra_sphinx_extensions:
+ - local_extension
+ - sphinx_toolbox.more_autosummary.column_widths
+ - sphinx_toolbox.latex.succinct_seealso

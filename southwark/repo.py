@@ -68,7 +68,7 @@ def get_user_identity(config: StackedConfig, kind: Optional[str] = None) -> byte
 	Determine the identity to use for new commits.
 
 	If kind is set, this first checks
-	:envvar:`GIT_${KIND}_NAME` and :envvar:`GIT_${KIND}_EMAIL`.
+	``GIT_${KIND}_NAME`` and ``GIT_${KIND}_EMAIL``.
 
 	If those variables are not set, then it will fall back
 	to reading the ``user.name`` and ``user.email`` settings from
@@ -76,7 +76,7 @@ def get_user_identity(config: StackedConfig, kind: Optional[str] = None) -> byte
 
 	If that also fails, then it will fall back to using
 	the current users' identity as obtained from the host
-	system (e.g. the gecos field, $EMAIL, $USER@$(hostname -f).
+	system (e.g. the gecos field, ``$EMAIL``, ``$USER@$(hostname -f)``.
 
 	:param config:
 	:param kind: Optional kind to return identity for, usually either ``'AUTHOR'`` or ``'COMMITTER'``.
@@ -133,6 +133,8 @@ class Repo(repo.Repo):
 	To create a new repository, use the Repo.init class method.
 
 	:param root:
+
+	.. autosummary-widths:: 47/100
 	"""
 
 	if PYPY36:  # pragma: no cover (not (PyPy and py36))

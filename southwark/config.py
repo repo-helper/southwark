@@ -60,8 +60,6 @@ def set_remote_ssh(config: ConfigFile, domain: str, username: str, repo: str, na
 	:param username:
 	:param repo:
 	:param name: The name of the remote to set.
-
-	.. versionadded:: 0.5.0
 	"""
 
 	config.set(("remote", name), "url", f"git@{domain}:{username}/{repo}.git".encode("UTF-8"))
@@ -76,8 +74,6 @@ def set_remote_http(config: ConfigFile, domain: str, username: str, repo: str, n
 	:param username:
 	:param repo:
 	:param name: The name of the remote to set.
-
-	.. versionadded:: 0.5.0
 	"""
 
 	config.set(("remote", name), "url", f"https://{domain}/{username}/{repo}.git".encode("UTF-8"))
@@ -91,8 +87,6 @@ def get_remotes(config: ConfigFile) -> Dict[str, str]:
 	Returns a dictionary mapping remote names to URLs.
 
 	:param config:
-
-	.. versionadded:: 0.5.0
 	"""
 
 	remotes = {}

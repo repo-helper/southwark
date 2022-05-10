@@ -9,9 +9,11 @@ Southwark
 
 .. end short_desc
 
-(Dulwich is located in the :wikipedia:`London Borough of Southwark`)
+.. only:: html
 
-Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs more tests.
+	(Dulwich is located in the :wikipedia:`London Borough of Southwark`)
+
+	Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs more tests.
 
 .. start shields
 
@@ -141,6 +143,13 @@ Installation
 
 .. end installation
 
+
+Contents
+-----------
+
+.. html-section::
+
+
 .. toctree::
 	:hidden:
 
@@ -148,23 +157,20 @@ Installation
 
 .. toctree::
 	:maxdepth: 3
-	:caption: API Reference
 	:glob:
 
 	api/southwark
 	api/*
 
-.. toctree::
-	:maxdepth: 3
-	:caption: Contributing
-
-	contributing
 	Source
+	license
 
 .. sidebar-links::
 	:caption: Links
 	:github:
 	:pypi: Southwark
+
+	Contributing Guide <https://contributing.repo-helper.uk>
 
 
 .. start links
