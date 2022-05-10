@@ -61,8 +61,8 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22mypy%22
 	:alt: mypy status
 
-.. |requires| image:: https://requires.io/github/domdfcoding/southwark/requirements.svg?branch=master
-	:target: https://requires.io/github/domdfcoding/southwark/requirements/?branch=master
+.. |requires| image:: https://dependency-dash.herokuapp.com/github/domdfcoding/southwark/badge.svg
+	:target: https://dependency-dash.herokuapp.com/github/domdfcoding/southwark/
 	:alt: Requirements Status
 
 .. |coveralls| image:: https://img.shields.io/coveralls/github/domdfcoding/southwark/master?logo=coveralls
@@ -112,7 +112,7 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 	:target: https://github.com/domdfcoding/southwark/commit/master
 	:alt: GitHub last commit
 
-.. |maintained| image:: https://img.shields.io/maintenance/yes/2021
+.. |maintained| image:: https://img.shields.io/maintenance/yes/2022
 	:alt: Maintenance
 
 .. |pypi-downloads| image:: https://img.shields.io/pypi/dm/Southwark
