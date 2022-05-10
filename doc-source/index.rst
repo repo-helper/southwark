@@ -5,6 +5,7 @@ Southwark
 .. start short_desc
 
 .. documentation-summary::
+	:meta:
 
 .. end short_desc
 
@@ -63,7 +64,8 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 		:workflow: mypy
 		:alt: mypy status
 
-	.. |requires| requires-io-shield::
+	.. |requires| image:: https://dependency-dash.herokuapp.com/github/domdfcoding/southwark/badge.svg
+		:target: https://dependency-dash.herokuapp.com/github/domdfcoding/southwark/
 		:alt: Requirements Status
 
 	.. |coveralls| coveralls-shield::
@@ -116,7 +118,7 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 		:last-commit:
 		:alt: GitHub last commit
 
-	.. |maintained| maintained-shield:: 2021
+	.. |maintained| maintained-shield:: 2022
 		:alt: Maintenance
 
 	.. |pypi-downloads| pypi-shield::
@@ -159,12 +161,18 @@ Installation
 	contributing
 	Source
 
+.. sidebar-links::
+	:caption: Links
+	:github:
+	:pypi: Southwark
+
+
 .. start links
 
 .. only:: html
 
 	View the :ref:`Function Index <genindex>` or browse the `Source Code <_modules/index.html>`__.
 
-	`Browse the GitHub Repository <https://github.com/domdfcoding/southwark>`__
+	:github:repo:`Browse the GitHub Repository <domdfcoding/southwark>`
 
 .. end links
