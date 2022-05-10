@@ -5,8 +5,6 @@ Usage: main [OPTIONS]
 Options:
   -y, --commit / -n, --no-commit  Commit or do not commit any changed files.
                                   [default: (Ask first)]
-
   -m, --message TEXT              The commit message to use.  [default: Default
                                   commit message]
-
   -h, --help                      Show this message and exit.
