@@ -66,8 +66,8 @@ Southwark
 		:workflow: mypy
 		:alt: mypy status
 
-	.. |requires| image:: https://dependency-dash.herokuapp.com/github/domdfcoding/southwark/badge.svg
-		:target: https://dependency-dash.herokuapp.com/github/domdfcoding/southwark/
+	.. |requires| image:: https://dependency-dash.herokuapp.com/github/repo-helper/southwark/badge.svg
+		:target: https://dependency-dash.herokuapp.com/github/repo-helper/southwark/
 		:alt: Requirements Status
 
 	.. |coveralls| coveralls-shield::
@@ -179,6 +179,6 @@ Contents
 
 	View the :ref:`Function Index <genindex>` or browse the `Source Code <_modules/index.html>`__.
 
-	:github:repo:`Browse the GitHub Repository <domdfcoding/southwark>`
+	:github:repo:`Browse the GitHub Repository <repo-helper/southwark>`
 
 .. end links

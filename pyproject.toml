@@ -19,9 +19,9 @@ email = "dominic@davis-foster.co.uk"
 file = "LICENSE"
 
 [project.urls]
-Homepage = "https://github.com/domdfcoding/southwark"
-"Issue Tracker" = "https://github.com/domdfcoding/southwark/issues"
-"Source Code" = "https://github.com/domdfcoding/southwark"
+Homepage = "https://github.com/repo-helper/southwark"
+"Issue Tracker" = "https://github.com/repo-helper/southwark/issues"
+"Source Code" = "https://github.com/repo-helper/southwark"
 Documentation = "https://southwark.readthedocs.io/en/latest"
 
 [tool.whey]
@@ -44,7 +44,7 @@ conda-channels = [ "conda-forge", "domdfcoding",]
 extras = "all"
 
 [tool.sphinx-pyproject]
-github_username = "domdfcoding"
+github_username = "repo-helper"
 github_repository = "southwark"
 author = "Dominic Davis-Foster"
 project = "Southwark"

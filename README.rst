@@ -37,40 +37,40 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 	:target: https://southwark.readthedocs.io/en/latest
 	:alt: Documentation Build Status
 
-.. |docs_check| image:: https://github.com/domdfcoding/southwark/workflows/Docs%20Check/badge.svg
-	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22Docs+Check%22
+.. |docs_check| image:: https://github.com/repo-helper/southwark/workflows/Docs%20Check/badge.svg
+	:target: https://github.com/repo-helper/southwark/actions?query=workflow%3A%22Docs+Check%22
 	:alt: Docs Check Status
 
-.. |actions_linux| image:: https://github.com/domdfcoding/southwark/workflows/Linux/badge.svg
-	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22Linux%22
+.. |actions_linux| image:: https://github.com/repo-helper/southwark/workflows/Linux/badge.svg
+	:target: https://github.com/repo-helper/southwark/actions?query=workflow%3A%22Linux%22
 	:alt: Linux Test Status
 
-.. |actions_windows| image:: https://github.com/domdfcoding/southwark/workflows/Windows/badge.svg
-	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22Windows%22
+.. |actions_windows| image:: https://github.com/repo-helper/southwark/workflows/Windows/badge.svg
+	:target: https://github.com/repo-helper/southwark/actions?query=workflow%3A%22Windows%22
 	:alt: Windows Test Status
 
-.. |actions_macos| image:: https://github.com/domdfcoding/southwark/workflows/macOS/badge.svg
-	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22macOS%22
+.. |actions_macos| image:: https://github.com/repo-helper/southwark/workflows/macOS/badge.svg
+	:target: https://github.com/repo-helper/southwark/actions?query=workflow%3A%22macOS%22
 	:alt: macOS Test Status
 
-.. |actions_flake8| image:: https://github.com/domdfcoding/southwark/workflows/Flake8/badge.svg
-	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22Flake8%22
+.. |actions_flake8| image:: https://github.com/repo-helper/southwark/workflows/Flake8/badge.svg
+	:target: https://github.com/repo-helper/southwark/actions?query=workflow%3A%22Flake8%22
 	:alt: Flake8 Status
 
-.. |actions_mypy| image:: https://github.com/domdfcoding/southwark/workflows/mypy/badge.svg
-	:target: https://github.com/domdfcoding/southwark/actions?query=workflow%3A%22mypy%22
+.. |actions_mypy| image:: https://github.com/repo-helper/southwark/workflows/mypy/badge.svg
+	:target: https://github.com/repo-helper/southwark/actions?query=workflow%3A%22mypy%22
 	:alt: mypy status
 
-.. |requires| image:: https://dependency-dash.herokuapp.com/github/domdfcoding/southwark/badge.svg
-	:target: https://dependency-dash.herokuapp.com/github/domdfcoding/southwark/
+.. |requires| image:: https://dependency-dash.herokuapp.com/github/repo-helper/southwark/badge.svg
+	:target: https://dependency-dash.herokuapp.com/github/repo-helper/southwark/
 	:alt: Requirements Status
 
-.. |coveralls| image:: https://img.shields.io/coveralls/github/domdfcoding/southwark/master?logo=coveralls
-	:target: https://coveralls.io/github/domdfcoding/southwark?branch=master
+.. |coveralls| image:: https://img.shields.io/coveralls/github/repo-helper/southwark/master?logo=coveralls
+	:target: https://coveralls.io/github/repo-helper/southwark?branch=master
 	:alt: Coverage
 
-.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/southwark?logo=codefactor
-	:target: https://www.codefactor.io/repository/github/domdfcoding/southwark
+.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/repo-helper/southwark?logo=codefactor
+	:target: https://www.codefactor.io/repository/github/repo-helper/southwark
 	:alt: CodeFactor Grade
 
 .. |pypi-version| image:: https://img.shields.io/pypi/v/Southwark
@@ -97,19 +97,19 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 	:target: https://anaconda.org/domdfcoding/Southwark
 	:alt: Conda - Platform
 
-.. |license| image:: https://img.shields.io/github/license/domdfcoding/southwark
-	:target: https://github.com/domdfcoding/southwark/blob/master/LICENSE
+.. |license| image:: https://img.shields.io/github/license/repo-helper/southwark
+	:target: https://github.com/repo-helper/southwark/blob/master/LICENSE
 	:alt: License
 
-.. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/southwark
+.. |language| image:: https://img.shields.io/github/languages/top/repo-helper/southwark
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/southwark/v0.8.1
-	:target: https://github.com/domdfcoding/southwark/pulse
+.. |commits-since| image:: https://img.shields.io/github/commits-since/repo-helper/southwark/v0.8.1
+	:target: https://github.com/repo-helper/southwark/pulse
 	:alt: GitHub commits since tagged version
 
-.. |commits-latest| image:: https://img.shields.io/github/last-commit/domdfcoding/southwark
-	:target: https://github.com/domdfcoding/southwark/commit/master
+.. |commits-latest| image:: https://img.shields.io/github/last-commit/repo-helper/southwark
+	:target: https://github.com/repo-helper/southwark/commit/master
 	:alt: GitHub last commit
 
 .. |maintained| image:: https://img.shields.io/maintenance/yes/2022
