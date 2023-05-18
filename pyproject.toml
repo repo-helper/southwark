@@ -4,7 +4,7 @@ build-backend = "whey"
 
 [project]
 name = "Southwark"
-version = "0.8.2"
+version = "0.9.0"
 description = "Extensions to the Dulwich Git library."
 readme = "README.rst"
 keywords = [ "dulwich", "git", "vcs",]
