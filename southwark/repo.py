@@ -231,7 +231,7 @@ class Repo(repo.Repo):
 		:param mkdir: Whether to create the directory if it doesn't exist.
 		"""
 
-		return super().init(path, mkdir)
+		return super().init(path, mkdir=mkdir)
 
 	@classmethod
 	def init_bare(cls: Type[_R], path: PathLike, mkdir: bool = False) -> _R:
@@ -242,7 +242,7 @@ class Repo(repo.Repo):
 		:param mkdir:
 		"""
 
-		return super().init_bare(path, mkdir)
+		return super().init_bare(path, mkdir=mkdir)
 
 	def list_remotes(self) -> Dict[str, str]:
 		"""
