@@ -1,10 +1,6 @@
-# stdlib
-import platform
-
 # 3rd party
-import pytest
-from domdf_python_tools.compat import PYPY36
-from pytest_regressions.data_regression import DataRegressionFixture
+from coincidence.regressions import AdvancedDataRegressionFixture
+from domdf_python_tools.paths import PathPlus
 
 # this package
 from southwark import clone, status, windows_clone_helper
@@ -12,7 +8,7 @@ from southwark.config import get_remotes
 from southwark.repo import Repo
 
 
-def test_list_remotes(tmp_pathplus, data_regression: DataRegressionFixture):
+def test_list_remotes(tmp_pathplus, advanced_data_regression: AdvancedDataRegressionFixture) -> None:
 	repo = Repo.init(tmp_pathplus)
 	config = repo.get_config()
 
@@ -20,8 +16,8 @@ def test_list_remotes(tmp_pathplus, data_regression: DataRegressionFixture):
 	config.set(("remote", "upstream"), "url", b"git@github.com:repo-helper/git-toggler.git")
 	config.write_to_path()
 
-	data_regression.check(repo.list_remotes())
-	data_regression.check(get_remotes(repo.get_config()))
+	advanced_data_regression.check(repo.list_remotes())
+	advanced_data_regression.check(get_remotes(repo.get_config()))
 
 
 _err_msg = "Dulwich causes 'TypeError: os.scandir() doesn't support bytes path on Windows, use Unicode instead'"
@@ -31,7 +27,7 @@ _err_msg = "Dulwich causes 'TypeError: os.scandir() doesn't support bytes path o
 # 		PYPY36 and platform.system() == "Windows",
 # 		reason=_err_msg,
 # 		)
-def test_reset_to(tmp_pathplus):
+def test_reset_to(tmp_pathplus: PathPlus):
 
 	with windows_clone_helper():
 		repo = clone("https://github.com/domdfcoding/domdf_python_tools", target=tmp_pathplus)

@@ -3,6 +3,7 @@ import getpass
 import re
 import socket
 from pathlib import Path
+from typing import List
 
 # 3rd party
 import pytest
@@ -16,7 +17,7 @@ logo_url = "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-note
 python_logo = RequestsURL(logo_url).get().content
 
 
-def test_targit(tmp_pathplus, monkeypatch):
+def test_targit(tmp_pathplus: PathPlus, monkeypatch) -> None:
 	monkeypatch.setattr(socket, "gethostname", lambda *args: "southwark.local")
 	monkeypatch.setattr(getpass, "getuser", lambda *args: "user")
 
@@ -81,14 +82,14 @@ def test_check_archive_paths():
 
 	class Archive:
 
-		def getnames(self):
+		def getnames(self) -> List[str]:
 			return ["foo/bar/baz.py", "code.c"]
 
 	assert check_archive_paths(Archive())  # type: ignore
 
 	class Archive:  # type: ignore
 
-		def getnames(self):
+		def getnames(self) -> List[str]:
 			return ["/usr/bin/malware.sh", "~/.local/bin/malware.sh", "./.local/bin/malware.sh"]
 
 	with pytest.raises(

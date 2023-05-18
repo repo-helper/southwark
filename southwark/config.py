@@ -51,7 +51,7 @@ from dulwich.config import ConfigFile
 __all__ = ["set_remote_ssh", "set_remote_http", "get_remotes"]
 
 
-def set_remote_ssh(config: ConfigFile, domain: str, username: str, repo: str, name: str = "origin"):
+def set_remote_ssh(config: ConfigFile, domain: str, username: str, repo: str, name: str = "origin") -> None:
 	"""
 	Set the remote url for the repository, using SSH.
 
@@ -65,7 +65,7 @@ def set_remote_ssh(config: ConfigFile, domain: str, username: str, repo: str, na
 	config.set(("remote", name), "url", f"git@{domain}:{username}/{repo}.git".encode("UTF-8"))
 
 
-def set_remote_http(config: ConfigFile, domain: str, username: str, repo: str, name: str = "origin"):
+def set_remote_http(config: ConfigFile, domain: str, username: str, repo: str, name: str = "origin") -> None:
 	"""
 	Set the remote url for the repository, using HTTP.
 

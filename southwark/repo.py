@@ -45,13 +45,13 @@ Modified Dulwich repository object.
 # stdlib
 import os
 from itertools import chain
-from typing import Any, Dict, Iterator, Optional, Type, TypeVar, Union, cast
+from typing import Any, Dict, Iterator, Optional, Set, Type, TypeVar, Union, cast
 
 # 3rd party
 import click
 import dulwich.index
 import dulwich.refs
-from domdf_python_tools.compat import PYPY, PYPY36
+from domdf_python_tools.compat import PYPY36
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.typing import PathLike
 from dulwich import repo
@@ -260,7 +260,7 @@ class Repo(repo.Repo):
 
 		return remotes
 
-	def reset_to(self, sha: Union[str, bytes]):
+	def reset_to(self, sha: Union[str, bytes]) -> None:
 		"""
 		Reset the state of the repository to the given commit sha.
 
@@ -353,7 +353,7 @@ if PYPY36:  # pragma: no cover (not (PyPy and py36))
 			allkeys.update(self.get_packed_refs())
 			return allkeys
 
-		def subkeys(self, base):
+		def subkeys(self, base) -> Set[str]:
 			subkeys = set()
 
 			path = self.refpath(base).decode("UTF-8")
@@ -380,7 +380,7 @@ if PYPY36:  # pragma: no cover (not (PyPy and py36))
 
 			return subkeys
 
-		def as_dict(self, base=None):
+		def as_dict(self, base=None) -> Dict:  # todo: KT, VT
 			ret = {}
 			keys = self.keys(base)
 

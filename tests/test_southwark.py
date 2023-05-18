@@ -1,15 +1,15 @@
 # 3rd party
+from coincidence.regressions import AdvancedDataRegressionFixture
 from coincidence.selectors import not_windows
 from domdf_python_tools.paths import PathPlus
 from pytest_git import GitRepo  # type: ignore
-from pytest_regressions.data_regression import DataRegressionFixture
 
 # this package
 from southwark import assert_clean, check_git_status, get_tags
 
 
-def test_get_tags(tmp_repo, data_regression: DataRegressionFixture):
-	data_regression.check(get_tags(tmp_repo))
+def test_get_tags(tmp_repo: PathPlus, advanced_data_regression: AdvancedDataRegressionFixture):
+	advanced_data_regression.check(get_tags(tmp_repo))
 
 
 @not_windows(reason="Patchy on Windows")

@@ -457,7 +457,7 @@ def open_repo_closing(path_or_repo: _DR) -> ContextManager[_DR]: ...
 def open_repo_closing(path_or_repo: Union[str, os.PathLike]) -> ContextManager[Repo]: ...
 
 
-def open_repo_closing(path_or_repo):
+def open_repo_closing(path_or_repo) -> ContextManager:  # noqa: MAN001
 	"""
 	Returns a context manager which will return :class:`dulwich.repo.Repo` objects unchanged,
 	but will create a new :class:`dulwich.repo.Repo` when a filesystem path is given.
@@ -474,7 +474,7 @@ def open_repo_closing(path_or_repo):
 
 
 @contextmanager
-def windows_clone_helper():
+def windows_clone_helper() -> Iterator[None]:
 	"""
 	Contextmanager to aid cloning on Windows during tests.
 

@@ -278,7 +278,7 @@ class TarGit(os.PathLike):
 
 		return status(self.__tmpdir_p).staged
 
-	def __do_commit(self, message: str):
+	def __do_commit(self, message: str) -> None:
 		if self.closed:
 			raise OSError("IO operation on closed TarGit file.")
 		elif self.__mode not in {'w', 'a'}:
@@ -304,7 +304,7 @@ class TarGit(os.PathLike):
 
 		return self.filename.is_file()
 
-	def close(self):
+	def close(self) -> None:
 		"""
 		Closes the :class:`~.TarGit` archive.
 		"""
@@ -312,7 +312,7 @@ class TarGit(os.PathLike):
 		self.__exit_handler()
 		atexit.unregister(self.__exit_handler)
 
-	def __exit_handler(self):
+	def __exit_handler(self) -> None:
 		if self.__tmpdir is not None:
 			self.__tmpdir.cleanup()
 		if self.__lock is not None:
@@ -348,7 +348,7 @@ class TarGit(os.PathLike):
 
 		return self.__tmpdir_p / filename
 
-	def __del__(self):
+	def __del__(self) -> None:
 		self.close()
 
 	def __repr__(self) -> str:

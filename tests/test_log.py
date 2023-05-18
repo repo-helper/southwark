@@ -3,8 +3,9 @@ import platform
 
 # 3rd party
 import pytest
+from coincidence.regressions import AdvancedFileRegressionFixture
 from domdf_python_tools.compat import PYPY36
-from pytest_regressions.file_regression import FileRegressionFixture
+from domdf_python_tools.paths import PathPlus
 
 # this package
 from southwark.log import Log
@@ -17,18 +18,18 @@ pypy_windows_dulwich = pytest.mark.skipif(
 
 
 # @pypy_windows_dulwich
-def test_log(tmp_repo, file_regression: FileRegressionFixture):
-	file_regression.check(Log(tmp_repo).log())
+def test_log(tmp_repo: PathPlus, advanced_file_regression: AdvancedFileRegressionFixture):
+	advanced_file_regression.check(Log(tmp_repo).log())
 
 
 @pypy_windows_dulwich
-def test_log_reverse(tmp_repo, file_regression: FileRegressionFixture):
-	file_regression.check(Log(tmp_repo).log(reverse=True))
+def test_log_reverse(tmp_repo: PathPlus, advanced_file_regression: AdvancedFileRegressionFixture):
+	advanced_file_regression.check(Log(tmp_repo).log(reverse=True))
 
 
 @pypy_windows_dulwich
-def test_log_from_tag(tmp_repo, file_regression: FileRegressionFixture):
-	file_regression.check(Log(tmp_repo).log(from_tag="v2.0.0"))
+def test_log_from_tag(tmp_repo: PathPlus, advanced_file_regression: AdvancedFileRegressionFixture):
+	advanced_file_regression.check(Log(tmp_repo).log(from_tag="v2.0.0"))
 
 	with pytest.raises(ValueError, match="No such tag 'v5.0.0'"):
 		Log(tmp_repo).log(from_tag="v5.0.0")
