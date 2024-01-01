@@ -417,13 +417,13 @@ def clone(
 		target_config = r.get_config()
 
 		target_config.set(("remote", origin), "url", source.encode("UTF-8"))
-		target_config.set(("remote", origin), "fetch", f"+refs/heads/*:refs/remotes/{origin}/*".encode("UTF-8"))
+		target_config.set(("remote", origin), "fetch", f"+refs/heads/*:refs/remotes/{origin}/*".encode())
 		target_config.write_to_path()
 		fetch_result = fetch(
 				r,
 				origin,
 				errstream=errstream,
-				message=f"clone: from {source}".encode("UTF-8"),
+				message=f"clone: from {source}".encode(),
 				depth=depth,
 				**kwargs,
 				)
