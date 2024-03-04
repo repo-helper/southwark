@@ -52,4 +52,4 @@ known_third_party = [
     "requests",
     "typing_extensions",
 ]
-known_first_party = "southwark"
+known_first_party = [ "southwark",]
