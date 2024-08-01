@@ -39,6 +39,7 @@ known_third_party = [
     "filelock",
     "github",
     "importlib_metadata",
+    "path",
     "pytest",
     "pytest_cov",
     "pytest_git",
