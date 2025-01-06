@@ -74,8 +74,7 @@ class Log:
 		#: Mapping of git refs to commit SHAs.
 		self.refs: Dict[str, str] = {
 				k.decode("UTF-8"): v.decode("UTF-8")
-				for k,
-				v in self.repo.get_refs().items()
+				for k, v in self.repo.get_refs().items()
 				if not k.startswith(b"refs/tags/")
 				}
 
