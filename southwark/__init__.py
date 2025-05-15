@@ -44,6 +44,7 @@ Extensions to the Dulwich Git library.
 # stdlib
 import os
 import shutil
+from collections import defaultdict
 from contextlib import closing, contextmanager
 from itertools import chain
 from operator import itemgetter
@@ -231,20 +232,14 @@ def format_git_status(status: GitStatus) -> Iterator[str]:
 	.. versionadded:: 0.6.1
 	"""
 
-	files: Dict[bytes, str] = {}
+	files: Dict[bytes, str] = defaultdict(str)
 
 	for key, code in status_codes.items():
 		for file in status.staged[key]:  # type: ignore
-			if file in files:
-				files[file] += code
-			else:
-				files[file] = code
+			files[file] += code
 
 	for file in status.unstaged:
-		if file in files:
-			files[file] += 'M'
-		else:
-			files[file] = 'M'
+		files[file] += 'M'
 
 	for file, codes in sorted(files.items(), key=itemgetter(0)):
 		longest = max(len(v) for v in files.values()) + 1
