@@ -289,7 +289,7 @@ class TarGit(os.PathLike):
 		login = getpass.getuser()
 		username = f"{login} <{login}@{socket.gethostname()}>"
 		current_time = datetime.datetime.now(datetime.timezone.utc).astimezone()
-		current_timezone = current_time.tzinfo.utcoffset(None).total_seconds()  # type: ignore
+		current_timezone = current_time.tzinfo.utcoffset(None).total_seconds()  # type: ignore[union-attr]
 
 		self.__repo.do_commit(
 				message=message.encode("UTF-8"),
@@ -340,7 +340,7 @@ class TarGit(os.PathLike):
 
 		return self.__mode
 
-	def __truediv__(self, filename):
+	def __truediv__(self, filename: PathLike) -> PathPlus:
 		"""
 		Returns a :class:`~domdf_python_tools.paths.PathPlus` object
 		representing the given filename relative to the archive root.
@@ -402,14 +402,14 @@ class TarGit(os.PathLike):
 
 	def __enter__(self) -> "TarGit":
 		"""
-		Setup and acquire the resource and return it
+		Setup and acquire the resource and return it.
 		"""
 
 		return self
 
-	def __exit__(self, exc_type, exc_value, traceback) -> bool:
+	def __exit__(self, exc_type, exc_value, traceback) -> bool:  # type: ignore[return]
 		"""
-		Shutdown and release the resource even if an error was raised
+		Shutdown and release the resource even if an error was raised.
 		"""
 
 		self.close()

@@ -8,7 +8,7 @@ from southwark.config import get_remotes
 from southwark.repo import Repo
 
 
-def test_list_remotes(tmp_pathplus, advanced_data_regression: AdvancedDataRegressionFixture) -> None:
+def test_list_remotes(tmp_pathplus: PathPlus, advanced_data_regression: AdvancedDataRegressionFixture) -> None:
 	repo = Repo.init(tmp_pathplus)
 	config = repo.get_config()
 

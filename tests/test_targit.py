@@ -82,10 +82,10 @@ def test_targit(tmp_pathplus: PathPlus, monkeypatch) -> None:
 		TarGit(tmp_pathplus / "file.tar.gz", 'w')
 
 	with pytest.raises(ValueError, match="Unknown IO mode 'wb'"):
-		TarGit(tmp_pathplus / "file.tar.gz", "wb")  # type: ignore
+		TarGit(tmp_pathplus / "file.tar.gz", "wb")  # type: ignore[arg-type]
 
 	with pytest.raises(ValueError, match="Unknown IO mode 't'"):
-		TarGit(tmp_pathplus / "file.tar.gz", 't')  # type: ignore
+		TarGit(tmp_pathplus / "file.tar.gz", 't')  # type: ignore[arg-type]
 
 
 def test_check_archive_paths():
@@ -95,9 +95,9 @@ def test_check_archive_paths():
 		def getnames(self) -> List[str]:
 			return ["foo/bar/baz.py", "code.c"]
 
-	assert check_archive_paths(Archive())  # type: ignore
+	assert check_archive_paths(Archive())  # type: ignore[arg-type]
 
-	class Archive:  # type: ignore
+	class Archive:  # type: ignore[no-redef]
 
 		def getnames(self) -> List[str]:
 			return ["/usr/bin/malware.sh", "~/.local/bin/malware.sh", "./.local/bin/malware.sh"]
@@ -106,7 +106,7 @@ def test_check_archive_paths():
 			BadArchiveError,
 			match="Refusing to extract an archive containing files utilising path traversal.",
 			):
-		check_archive_paths(Archive())  # type: ignore
+		check_archive_paths(Archive())  # type: ignore[arg-type]
 
 
 def test_savestate():

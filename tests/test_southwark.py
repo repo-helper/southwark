@@ -2,7 +2,7 @@
 from coincidence.regressions import AdvancedDataRegressionFixture
 from coincidence.selectors import not_windows
 from domdf_python_tools.paths import PathPlus
-from pytest_git import GitRepo  # type: ignore
+from pytest_git import GitRepo  # type: ignore[import]
 
 # this package
 from southwark import assert_clean, check_git_status, get_tags

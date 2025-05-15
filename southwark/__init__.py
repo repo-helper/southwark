@@ -235,7 +235,7 @@ def format_git_status(status: GitStatus) -> Iterator[str]:
 	files: Dict[bytes, str] = defaultdict(str)
 
 	for key, code in status_codes.items():
-		for file in status.staged[key]:  # type: ignore
+		for file in status.staged[key]:  # type: ignore[misc]
 			files[file] += code
 
 	for file in status.unstaged:
@@ -309,7 +309,7 @@ def get_tree_changes(repo: Union[PathLike, dulwich.repo.Repo]) -> StagedDict:
 				"modify": [],
 				}
 		try:
-			tree_id = r[b'HEAD'].tree  # type: ignore
+			tree_id = r[b'HEAD'].tree  # type: ignore[attr-defined]
 		except KeyError:
 			tree_id = None
 
@@ -434,7 +434,7 @@ def clone(
 
 		if checkout and not bare and head is not None:
 			errstream.write(b'Checking out ' + head.id + b'\n')
-			r.reset_index(head.tree)  # type: ignore   # TODO
+			r.reset_index(head.tree)  # type: ignore[attr-defined]  # TODO
 
 	except BaseException:
 		shutil.rmtree(target, ignore_errors=True)
@@ -491,7 +491,7 @@ def windows_clone_helper() -> Iterator[None]:
 
 	try:
 		name = "wordle_user"
-		StackedConfig.default_backends = lambda *args: []  # type: ignore
+		StackedConfig.default_backends = lambda *args: []  # type: ignore[assignment]
 		os.environ["USER"] = os.environ.get("USER", name)
 
 		yield
@@ -499,4 +499,4 @@ def windows_clone_helper() -> Iterator[None]:
 	finally:
 		os.environ.clear()
 		os.environ.update(_environ)
-		StackedConfig.default_backends = _default_backends  # type: ignore
+		StackedConfig.default_backends = _default_backends  # type: ignore[assignment]

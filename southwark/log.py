@@ -177,7 +177,7 @@ class Log:
 		if from_date is not None and from_tag is not None:
 			raise ValueError("'from_date' and 'from_tag' are exclusive.")
 		elif from_date:
-			kwargs["since"] = from_date.timestamp()  # type: ignore
+			kwargs["since"] = from_date.timestamp()  # type: ignore[index]
 		elif from_tag and not any(from_tag == tag for tag in self.tags.values()):
 			raise ValueError(f"No such tag {from_tag!r}")
 

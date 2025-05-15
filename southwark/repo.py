@@ -108,7 +108,7 @@ def get_user_identity(config: StackedConfig, kind: Optional[str] = None) -> byte
 			email = None
 
 	if user is None or email is None:
-		default_user, default_email = repo._get_default_identity()  # type: ignore
+		default_user, default_email = repo._get_default_identity()  # type: ignore[attr-defined]
 
 		if user is None:
 			user = default_user.encode("UTF-8")
