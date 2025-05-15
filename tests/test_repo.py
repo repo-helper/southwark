@@ -20,13 +20,6 @@ def test_list_remotes(tmp_pathplus: PathPlus, advanced_data_regression: Advanced
 	advanced_data_regression.check(get_remotes(repo.get_config()))
 
 
-_err_msg = "Dulwich causes 'TypeError: os.scandir() doesn't support bytes path on Windows, use Unicode instead'"
-
-
-# @pytest.mark.skipif(
-# 		PYPY36 and platform.system() == "Windows",
-# 		reason=_err_msg,
-# 		)
 def test_reset_to(tmp_pathplus: PathPlus):
 
 	with windows_clone_helper():
