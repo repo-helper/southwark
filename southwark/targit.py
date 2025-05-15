@@ -157,6 +157,8 @@ class TarGit(os.PathLike):
 	:raises FileNotFoundError: If the file is opened in read or append mode, but it does not exist.
 	:raises FileExistsError: If the file is opened in write mode, but it already exists.
 	:raises ValueError: If an unknown value for ``mode`` is given.
+
+	.. versionchanged:: 0.10.0  Can now be used as a contextmanager.
 	"""  # noqa: D400
 
 	__mode: Modes
@@ -176,7 +178,7 @@ class TarGit(os.PathLike):
 			self.__lock = FileLock(lock_file, timeout=1)
 			try:
 				self.__lock.acquire()
-			except Timeout:
+			except Timeout:  # pragma: no cover
 				raise OSError(f"Unable to acquire a lock for the file '{self.filename!s}'")
 		else:
 			self.__lock = None
@@ -279,9 +281,9 @@ class TarGit(os.PathLike):
 		return status(self.__tmpdir_p).staged
 
 	def __do_commit(self, message: str) -> None:
-		if self.closed:
+		if self.closed:  # pragma: no cover (guarded in all callers)
 			raise OSError("IO operation on closed TarGit file.")
-		elif self.__mode not in {'w', 'a'}:
+		elif self.__mode not in {'w', 'a'}:  # pragma: no cover (guarded in all callers)
 			raise OSError("Cannot write to TarGit file opened in read-only mode.")
 
 		login = getpass.getuser()
@@ -397,3 +399,17 @@ class TarGit(os.PathLike):
 					time=entry.commit.author_time,
 					timezone=entry.commit.author_timezone,
 					)
+
+	def __enter__(self) -> "TarGit":
+		"""
+		Setup and acquire the resource and return it
+		"""
+
+		return self
+
+	def __exit__(self, exc_type, exc_value, traceback) -> bool:
+		"""
+		Shutdown and release the resource even if an error was raised
+		"""
+
+		self.close()
