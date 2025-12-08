@@ -232,10 +232,10 @@ def format_git_status(status: GitStatus) -> Iterator[str]:
 	.. versionadded:: 0.6.1
 	"""
 
-	files: Dict[bytes, str] = defaultdict(str)
+	files: Dict[PathPlus, str] = defaultdict(str)
 
 	for key, code in status_codes.items():
-		for file in status.staged[key]:  # type: ignore[misc]
+		for file in status.staged[key]:  # type: ignore[literal-required]
 			files[file] += code
 
 	for file in status.unstaged:
@@ -491,7 +491,7 @@ def windows_clone_helper() -> Iterator[None]:
 
 	try:
 		name = "wordle_user"
-		StackedConfig.default_backends = lambda *args: []  # type: ignore[assignment]
+		StackedConfig.default_backends = lambda *args: []  # type: ignore[method-assign]
 		os.environ["USER"] = os.environ.get("USER", name)
 
 		yield
@@ -499,4 +499,4 @@ def windows_clone_helper() -> Iterator[None]:
 	finally:
 		os.environ.clear()
 		os.environ.update(_environ)
-		StackedConfig.default_backends = _default_backends  # type: ignore[assignment]
+		StackedConfig.default_backends = _default_backends  # type: ignore[method-assign]

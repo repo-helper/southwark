@@ -30,7 +30,7 @@ Python implementation of ``git log``.
 import time
 from datetime import datetime
 from textwrap import indent
-from typing import Dict, Mapping, Optional, Union
+from typing import Any, Dict, Optional, Union
 
 # 3rd party
 import dulwich.repo
@@ -172,12 +172,12 @@ class Log:
 		:param colour: Show coloured output.
 		"""
 
-		kwargs: Mapping[str, Union[None, int, bool]] = dict(max_entries=max_entries, reverse=reverse)
+		kwargs: Dict[str, Any] = dict(max_entries=max_entries, reverse=reverse)
 
 		if from_date is not None and from_tag is not None:
 			raise ValueError("'from_date' and 'from_tag' are exclusive.")
 		elif from_date:
-			kwargs["since"] = from_date.timestamp()  # type: ignore[index]
+			kwargs["since"] = from_date.timestamp()
 		elif from_tag and not any(from_tag == tag for tag in self.tags.values()):
 			raise ValueError(f"No such tag {from_tag!r}")
 

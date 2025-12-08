@@ -15,7 +15,6 @@ short_desc: 'Extensions to the Dulwich Git library.'
 
 use_whey: true
 min_coverage: 85
-mypy_version: "0.812"
 
 conda_channels:
  - conda-forge
