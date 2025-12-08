@@ -5,6 +5,7 @@ apeye>=0.5.1
 coincidence>=0.2.0
 coverage>=5.1
 coverage-pyver-pragma>=0.2.1
+dulwich<=0.24.3; sys_platform == "win32"
 importlib-metadata>=3.6.0
 path<17
 pytest>=6.0.0
