@@ -44,6 +44,7 @@ Modified Dulwich repository object.
 
 # stdlib
 import os
+import pathlib
 from itertools import chain
 from typing import Any, Dict, Iterator, Optional, Type, TypeVar, Union, cast
 
@@ -135,6 +136,19 @@ class Repo(repo.Repo):
 	.. autosummary-widths:: 47/100
 	"""
 
+	_path: PathPlus
+
+	@property
+	def path(self) -> PathPlus:  # noqa: D102
+		return self._path
+
+	@path.setter
+	def path(self, __value: PathLike) -> None:
+		if isinstance(__value, PathPlus):
+			self._path = __value
+		else:
+			self._path = PathPlus(__value)
+
 	def do_commit(  # type: ignore[override]
 		self,
 		message: Optional[Union[str, bytes]] = None,
@@ -222,7 +236,10 @@ class Repo(repo.Repo):
 		:param mkdir: Whether to create the directory if it doesn't exist.
 		"""
 
-		return super().init(path, mkdir=mkdir)
+		repo = super().init(path, mkdir=mkdir)
+		if isinstance(path, pathlib.Path):
+			assert isinstance(repo.path, pathlib.Path)
+		return repo
 
 	@classmethod
 	def init_bare(cls: Type[_R], path: PathLike, mkdir: bool = False) -> _R:
@@ -233,7 +250,10 @@ class Repo(repo.Repo):
 		:param mkdir:
 		"""
 
-		return super().init_bare(path, mkdir=mkdir)
+		repo = super().init_bare(path, mkdir=mkdir)
+		if isinstance(path, pathlib.Path):
+			assert isinstance(repo.path, pathlib.Path)
+		return repo
 
 	def list_remotes(self) -> Dict[str, str]:
 		"""

@@ -1,3 +1,6 @@
+# stdlib
+import pathlib
+
 # 3rd party
 from coincidence.regressions import AdvancedDataRegressionFixture
 from domdf_python_tools.paths import PathPlus
@@ -10,6 +13,8 @@ from southwark.repo import Repo
 
 def test_list_remotes(tmp_pathplus: PathPlus, advanced_data_regression: AdvancedDataRegressionFixture) -> None:
 	repo = Repo.init(tmp_pathplus)
+	assert isinstance(repo.path, pathlib.Path)
+
 	config = repo.get_config()
 
 	config.set(("remote", "origin"), "url", b"https://github.com/domdfcoding/git-toggle.git")
@@ -43,6 +48,7 @@ def test_reset_to(tmp_pathplus: PathPlus):
 	assert not current_status.untracked
 
 	repo = Repo(tmp_pathplus)
+	assert isinstance(repo.path, pathlib.Path)
 
 	for entry in repo.get_walker():
 		assert entry.commit.id == b"b2a09de2c93fd8dae057f7f8d178ed3abeca6efe"
