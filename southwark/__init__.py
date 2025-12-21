@@ -363,7 +363,7 @@ def clone(
 		depth: Optional[int] = None,
 		**kwargs,
 		) -> Repo:
-	"""
+	r"""
 	Clone a local or remote git repository.
 
 	:param source: Path or URL for source repository.
@@ -373,6 +373,7 @@ def clone(
 	:param errstream: Optional stream to write progress to.
 	:param origin: Name of remote from the repository used to clone.
 	:param depth: Depth to fetch at.
+	:param \*\*kwargs: Other arguments for :func:`dulwich.porcelain.fetch`.
 
 	:returns: The cloned repository.
 

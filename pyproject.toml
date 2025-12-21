@@ -71,6 +71,7 @@ extensions = [
     "seed_intersphinx_mapping",
     "html_section",
     "local_extension",
+    "ignore_missing_xref",
     "sphinx_toolbox.more_autosummary.column_widths",
     "sphinx_toolbox.latex.succinct_seealso",
 ]
