@@ -407,7 +407,7 @@ class TarGit(os.PathLike):
 
 		return self
 
-	def __exit__(self, exc_type, exc_value, traceback) -> bool:  # type: ignore[return]
+	def __exit__(self, exc_type, exc_value, traceback) -> bool:  # type: ignore[return]  # noqa: PRM002
 		"""
 		Shutdown and release the resource even if an error was raised.
 		"""
