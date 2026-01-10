@@ -116,7 +116,7 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 	:alt: Maintenance
 
 .. |pypi-downloads| image:: https://img.shields.io/pypi/dm/Southwark
-	:target: https://pypi.org/project/Southwark/
+	:target: https://pypistats.org/packages/Southwark
 	:alt: PyPI - Downloads
 
 .. end shields
