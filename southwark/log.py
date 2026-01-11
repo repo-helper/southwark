@@ -159,7 +159,7 @@ class Log:
 			reverse: bool = False,
 			from_date: Optional[datetime] = None,
 			from_tag: Optional[str] = None,
-			colour: bool = True
+			colour: bool = True,
 			) -> str:
 		"""
 		Return the formatted commit log.

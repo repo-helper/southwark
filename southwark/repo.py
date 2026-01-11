@@ -161,8 +161,8 @@ class Repo(repo.Repo):
 		tree: Optional[Any] = None,
 		encoding: Optional[Union[str, bytes]] = None,
 		ref: bytes = b'HEAD',
-		merge_heads: Optional[Any] = None
-		) -> bytes:
+		merge_heads: Optional[Any] = None,
+	) -> bytes:
 		"""
 		Create a new commit.
 
