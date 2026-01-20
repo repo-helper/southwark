@@ -132,7 +132,7 @@ To install with ``pip``:
 
 .. code-block:: bash
 
-	$ python -m pip install Southwark
+	$ python -m pip install southwark
 
 To install with ``conda``:
 

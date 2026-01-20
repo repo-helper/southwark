@@ -135,10 +135,11 @@ Installation
 
 .. start installation
 
-.. installation:: Southwark
+.. installation:: southwark
 	:pypi:
 	:github:
 	:anaconda:
+	:conda-name: Southwark
 	:conda-channels: conda-forge, domdfcoding
 
 .. end installation
