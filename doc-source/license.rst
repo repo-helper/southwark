@@ -7,4 +7,4 @@ License
 .. license-info:: MIT
 
 .. license::
-	:py: Southwark
+	:py: southwark

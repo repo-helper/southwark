@@ -73,20 +73,20 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 	:target: https://www.codefactor.io/repository/github/repo-helper/southwark
 	:alt: CodeFactor Grade
 
-.. |pypi-version| image:: https://img.shields.io/pypi/v/Southwark
-	:target: https://pypi.org/project/Southwark/
+.. |pypi-version| image:: https://img.shields.io/pypi/v/southwark
+	:target: https://pypi.org/project/southwark/
 	:alt: PyPI - Package Version
 
-.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/Southwark?logo=python&logoColor=white
-	:target: https://pypi.org/project/Southwark/
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/southwark?logo=python&logoColor=white
+	:target: https://pypi.org/project/southwark/
 	:alt: PyPI - Supported Python Versions
 
-.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/Southwark
-	:target: https://pypi.org/project/Southwark/
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/southwark
+	:target: https://pypi.org/project/southwark/
 	:alt: PyPI - Supported Implementations
 
-.. |wheel| image:: https://img.shields.io/pypi/wheel/Southwark
-	:target: https://pypi.org/project/Southwark/
+.. |wheel| image:: https://img.shields.io/pypi/wheel/southwark
+	:target: https://pypi.org/project/southwark/
 	:alt: PyPI - Wheel
 
 .. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/Southwark?logo=anaconda
@@ -115,8 +115,8 @@ Spun out from `repo_helper <https://github.com/domdfcoding/repo_helper>`_. Needs
 .. |maintained| image:: https://img.shields.io/maintenance/yes/2026
 	:alt: Maintenance
 
-.. |pypi-downloads| image:: https://img.shields.io/pypi/dm/Southwark
-	:target: https://pypistats.org/packages/Southwark
+.. |pypi-downloads| image:: https://img.shields.io/pypi/dm/southwark
+	:target: https://pypistats.org/packages/southwark
 	:alt: PyPI - Downloads
 
 .. end shields
