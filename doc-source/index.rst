@@ -77,22 +77,22 @@ Southwark
 		:alt: CodeFactor Grade
 
 	.. |pypi-version| pypi-shield::
-		:project: Southwark
+		:project: southwark
 		:version:
 		:alt: PyPI - Package Version
 
 	.. |supported-versions| pypi-shield::
-		:project: Southwark
+		:project: southwark
 		:py-versions:
 		:alt: PyPI - Supported Python Versions
 
 	.. |supported-implementations| pypi-shield::
-		:project: Southwark
+		:project: southwark
 		:implementations:
 		:alt: PyPI - Supported Implementations
 
 	.. |wheel| pypi-shield::
-		:project: Southwark
+		:project: southwark
 		:wheel:
 		:alt: PyPI - Wheel
 
@@ -124,7 +124,7 @@ Southwark
 		:alt: Maintenance
 
 	.. |pypi-downloads| pypi-shield::
-		:project: Southwark
+		:project: southwark
 		:downloads: month
 		:alt: PyPI - Downloads
 
