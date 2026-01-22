@@ -91,7 +91,7 @@ def get_remotes(config: ConfigFile) -> Dict[str, str]:
 
 	remotes = {}
 
-	for key in list(config.keys()):
+	for key in config.keys():
 		if key[0] == b"remote":
 			url = config.get(key, "url")
 			if url is not None:

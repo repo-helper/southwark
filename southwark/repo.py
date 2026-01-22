@@ -265,7 +265,7 @@ class Repo(repo.Repo):
 		remotes = {}
 		config = self.get_config()
 
-		for key in list(config.keys()):
+		for key in config.keys():
 			if key[0] == b"remote":
 				remotes[key[1].decode("UTF-8")] = config.get(key, "url").decode("UTF-8")
 

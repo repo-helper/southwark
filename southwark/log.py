@@ -172,7 +172,7 @@ class Log:
 		:param colour: Show coloured output.
 		"""
 
-		kwargs: Dict[str, Any] = dict(max_entries=max_entries, reverse=reverse)
+		kwargs: Dict[str, Any] = {"max_entries": max_entries, "reverse": reverse}
 
 		if from_date is not None and from_tag is not None:
 			raise ValueError("'from_date' and 'from_tag' are exclusive.")
