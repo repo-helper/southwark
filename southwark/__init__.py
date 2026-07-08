@@ -484,7 +484,6 @@ def windows_clone_helper() -> Iterator[None]:
 
 		with windows_clone_helper():
 			repo = clone(...)
-
 	"""
 
 	_environ = dict(os.environ)  # or os.environ.copy()
